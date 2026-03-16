@@ -43,16 +43,16 @@ chess-coach-ai/
 │   ├── game_vault.py
 │   ├── opening_classifier.py
 │   ├── tactics_generator.py
-│   └── validate_schema.py
+│   ├── validate_schema.py
+│   └── detect_pgn_save.py
 ├── data/
 │   ├── schemas/
 │   │   ├── player_report.json
 │   │   ├── game_analysis.json
 │   │   ├── training_insights.json
 │   │   ├── mental_profile.json
-│   │   ├── wellness_input.json
 │   │   ├── biohack_protocol.json
-│   │   ├── training_plan.json
+│   │   ├── roadmap_state.json
 │   │   └── game_vault_entry.json
 │   ├── supplements.json
 │   ├── nutrition_protocols.json
@@ -77,17 +77,17 @@ chess-coach-ai/
 │   ├── test_wellness_tracker.py
 │   ├── test_opening_classifier.py
 │   └── test_tactics_generator.py
-├── agents/
-│   ├── intel-evals/
+├── evals/
+│   ├── intel/
 │   │   ├── eval-set.json
 │   │   └── evals.json
-│   ├── gm-evals/
+│   ├── gm/
 │   │   ├── eval-set.json
 │   │   └── evals.json
-│   ├── mind-evals/
+│   ├── mind/
 │   │   ├── eval-set.json
 │   │   └── evals.json
-│   └── biohack-evals/
+│   └── biohack/
 │       ├── eval-set.json
 │       └── evals.json
 ├── requirements.txt
@@ -193,7 +193,7 @@ ROADMAP:   GM first (needs game history analysis)
 - `chessdb_client.py` — Position-based lookups (opening book depth)
 - `pgn_parser.py` — Parse downloaded games
 - `time_analysis.py` — Clock usage patterns per move
-- `style_classifier.py` — Classify into archetypes
+- `style_classifier.py` — Classify into archetypes (activist/theorist/defender) and sub-profiles (precision_player/chaos_specialist based on ACPL in quiet vs complex positions)
 - `opening_classifier.py` — ECO code + opening name via lichess-org/chess-openings
 - `game_vault.py` — Store/retrieve opponent PGNs
 - **ChessAgine MCP** — Lichess game retrieval, opening explorer
@@ -207,6 +207,7 @@ ROADMAP:   GM first (needs game history analysis)
   "ratings": { "bullet": 0, "blitz": 0, "rapid": 0, "classical": 0 },
   "games_analyzed": 0,
   "style_archetype": "activist|theorist|defender",
+  "style_sub_profile": "precision_player|chaos_specialist|balanced",
   "acpl_avg": 0.0,
   "clock_inflection_point": { "move_number": 35, "avg_error_spike": 2.3 },
   "opening_weaknesses": [
@@ -224,7 +225,7 @@ ROADMAP:   GM first (needs game history analysis)
 ### Key Logic
 
 - Opening Explorer filtered by opponent: detects lines with win rate < 45%
-- ACPL crossover: quiet positions vs chaotic → "precision player" or "chaos specialist"
+- ACPL crossover: quiet positions vs chaotic → `style_sub_profile` classification (precision_player, chaos_specialist, or balanced)
 - Clock inflection point: which move the opponent starts making systematic blunders
 - Generates dossier using `templates/intel_dossier.md`
 
@@ -242,6 +243,7 @@ ROADMAP:   GM first (needs game history analysis)
 - `dqm_calculator.py` — Decision Quality Metric
 - `opening_classifier.py` — ECO code classification
 - `game_vault.py` — Read/write games and insights
+- `tactics_generator.py` — Wraps pgn-tactics-generator and chess-artist for puzzle generation
 - **chess-artist** — Auto-PGN annotation + puzzle generation
 - **pgn-tactics-generator** — Tactical puzzles from user's own blunders
 - **cdblib** — Cloud eval fallback via chessdb.cn
@@ -320,10 +322,10 @@ When the user saves a game (or imports a batch), GM auto-triggers:
       "decrease_priority": [],
       "add_topic": ["bridge_building_technique"],
       "suggested_block_rebalance": {
-        "tactics": 35,
-        "error_analysis": 30,
-        "strategy": 20,
-        "endgames": 15
+        "openings": 15,
+        "middlegame": 30,
+        "endgame": 35,
+        "tactics": 20
       }
     }
   }
@@ -335,7 +337,7 @@ When the user saves a game (or imports a batch), GM auto-triggers:
 - Compares user move vs Stockfish (optimal) vs Maia (human at user's level)
 - Maia predicts for lower level → "Pattern Recognition Failure"
 - Maia correct but deep strategic error → "Conceptual Weakness"
-- DQM = average eval difference per move (result-independent)
+- DQM (Decision Quality Metric) = normalized score from 0.0 to 1.0 measuring decision consistency. Calculated as `1 - (ACPL / max_expected_acpl_for_level)`, where `max_expected_acpl_for_level` is calibrated per rating band. Unlike ACPL (raw centipawn loss), DQM is level-relative: a DQM of 0.82 means the user played at 82% of their expected best. This allows tracking improvement independently of opponent strength or game result.
 - For prep: receives `player_report` from Intel → selects lines exploiting opponent weaknesses
 - Auto-generates tactical puzzles from user's own blunders via pgn-tactics-generator
 
@@ -432,6 +434,10 @@ When the user saves a game (or imports a batch), GM auto-triggers:
 }
 ```
 
+### Input Schema: biohack_protocol.json > current_state
+
+The `current_state` object in `biohack_protocol.json` serves as the wellness input contract. The Biohack agent collects this data via `wellness_tracker.py` (either `from_manual()` conversational prompts or `from_wearable()` in a future phase). The full `biohack_protocol.json` schema (shown above) acts as both input and output: `current_state` is populated by the user, and `protocol` is generated by the agent.
+
 ### Key Logic
 
 - sleep < 6h or energy < 5 → `training_intensity_modifier: 0.6`, alert to GM
@@ -463,6 +469,35 @@ Local fallback (vault/)
 - Bidirectional sync when connection recovers
 - User can add PGNs from any source: paste in chat, local file, Lichess URL
 
+### Vault Entry Schema: game_vault_entry.json
+
+Each stored game is wrapped in a metadata envelope:
+
+```json
+{
+  "game_id": "string (hash of PGN)",
+  "source": "manual|lichess_import|lichess_url",
+  "category": "my_game|opponent_prep",
+  "opponent_username": "string|null",
+  "date_played": "ISO-8601",
+  "date_stored": "ISO-8601",
+  "time_control": "string (e.g. 600+0)",
+  "result": "1-0|0-1|1/2",
+  "user_color": "white|black|unknown",
+  "opening_eco": "string",
+  "opening_name": "string",
+  "tags": ["string"],
+  "pgn_file": "relative path to .pgn file",
+  "insights_file": "relative path to insights .json|null",
+  "auto_analyzed": false,
+  "sync_status": "local_only|synced|pending_sync"
+}
+```
+
+### Schema: roadmap_state.json
+
+The `data/schemas/roadmap_state.json` schema validates the `vault/roadmap_state.json` state file. The `phase_balance` keys are canonical: `openings`, `middlegame`, `endgame`, `tactics`. All references — including `suggested_block_rebalance` in `training_insights.json` — must use these exact keys.
+
 ### Add Game Flows
 
 | Action | Input | Result |
@@ -487,8 +522,7 @@ vault/
 │   ├── 2026-03-16_user_vs_opponent_insights.json
 │   └── ...
 ├── index.json
-├── roadmap_state.json
-└── stats_cache.json
+└── roadmap_state.json
 ```
 
 ---
@@ -571,11 +605,11 @@ The roadmap is a **living syllabus** that recalibrates with every analyzed game 
       "coverage_score": 0.60
     }
   },
-  "next_session_plan": {
-    "priority_1": { "weakness_id": "w_001", "activity": "Lucena drill 10x vs engine", "duration_min": 30 },
-    "priority_2": { "weakness_id": "w_002", "activity": "Review annotated IQP game #4", "duration_min": 20 },
-    "priority_3": { "activity": "Tactical puzzles — pin/skewer theme", "duration_min": 15 }
-  }
+  "next_session_plan": [
+    { "weakness_id": "w_001", "activity": "Lucena drill 10x vs engine", "duration_min": 30 },
+    { "weakness_id": "w_002", "activity": "Review annotated IQP game #4", "duration_min": 20 },
+    { "weakness_id": null, "activity": "Tactical puzzles — pin/skewer theme", "duration_min": 15 }
+  ]
 }
 ```
 
@@ -658,7 +692,7 @@ Assertion-based evals verifying output correctness per flow:
 - **Tilt detection:** Detects tilt, recommends break, offers recovery protocol
 - **Save game:** Confirms save, tags with opening, includes metadata
 
-Each agent has its own eval suite in `agents/{name}-evals/`.
+Each agent has its own eval suite in `evals/{name}/`.
 
 ### Hooks Quality Gate
 
@@ -681,7 +715,7 @@ Each agent has its own eval suite in `agents/{name}-evals/`.
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/tools/detect_pgn_save.sh"
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/tools/detect_pgn_save.py"
           }
         ]
       }
@@ -729,7 +763,33 @@ google-auth-oauthlib>=1.0.0
 
 ---
 
-## 11. Multilingual Support
+## 11. Error Handling & Resilience
+
+### Fallback Strategy
+
+| Component | Failure | Fallback |
+|-----------|---------|----------|
+| **Lichess API** | Rate limited (429) | Exponential backoff (1s, 2s, 4s), max 3 retries. If persistent, use cached data from vault |
+| **chessdb.cn** | Timeout or quota exceeded | Skip cloud eval, use Stockfish local. Log warning |
+| **Stockfish binary** | Not installed or crash | Fall back to ChessAgine MCP eval. If both fail, return analysis without engine eval and warn user |
+| **ChessAgine MCP** | Server not running / npx fails | Agent reports missing capability. Coordinator adjusts flow to skip Maia comparison |
+| **Google Drive** | No credentials / auth expired / network error | Transparent fallback to local vault. Queue changes for sync when reconnected |
+| **syzygy-tables.info** | API down | Skip tablebase probing. Endgame analysis uses Stockfish eval only |
+| **PGN parsing** | Malformed PGN | Return parse error with specific line/move. Do not crash the analysis pipeline |
+
+### Validation
+
+- All agent outputs are validated against their JSON schema via the `TaskCompleted` hook before the coordinator accepts them
+- If validation fails, the task is rejected and the agent retries once with the validation error as feedback
+- `detect_pgn_save.py` checks that written files matching `vault/**/*.pgn` are valid PGN before triggering auto-analysis
+
+### ChessAgine MCP Verification
+
+Before first use, the setup flow must verify ChessAgine's actual tool surface. The spec assumes these capabilities based on published documentation (March 2026). If any tool is missing, the corresponding agent feature degrades gracefully rather than failing entirely.
+
+---
+
+## 12. Multilingual Support
 
 - All code, docs, agent prompts, and templates in **English**
 - Agents respond in the user's language (native Claude capability)
@@ -738,7 +798,7 @@ google-auth-oauthlib>=1.0.0
 
 ---
 
-## 12. Future Considerations (Not in Phase 1)
+## 13. Future Considerations (Not in Phase 1)
 
 - Chess.com API integration (platform abstraction layer ready)
 - Wearable integration (Oura, WHOOP) via `wellness_tracker.from_wearable()`
