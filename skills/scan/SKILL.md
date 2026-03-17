@@ -99,9 +99,23 @@ FEN: rnbqkb1r/pppppppp/5n2/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 2 3
 - **Ambiguous pieces**: "On d4, is that a white queen or white king? The image is unclear."
 - **Missing result**: "I couldn't find the game result on the scoresheet. How did the game end?"
 
-## After Scanning
+## MANDATORY: Validation Gate Before Analysis
 
-Once the PGN or FEN is confirmed:
+**NEVER hand off to GM or any other agent until the user explicitly confirms the scan is correct.**
+
+The flow is always:
+1. Scan the image → generate PGN or FEN
+2. **Render the result back to the user** (board_renderer for FEN, move list for PGN)
+3. **Ask for explicit confirmation**: "Is this correct?"
+4. **If user says no** → ask what's wrong, fix, re-render, ask again
+5. **If user says yes** → ONLY THEN offer to save/analyze
+6. **If user doesn't respond to the confirmation** → do NOT proceed to analysis. Wait.
+
+This gate exists because image recognition can make mistakes. Sending wrong data to GM wastes time and produces misleading analysis.
+
+## After Confirmation
+
+Once the user has explicitly confirmed the PGN or FEN is correct:
 1. Ask: "Want me to save this to your vault?"
 2. Ask: "Want me to analyze this game/position?"
 3. If user says yes to analysis, hand off to the coach skill which dispatches GM + Mind
@@ -112,5 +126,6 @@ Once the PGN or FEN is confirmed:
 - Be patient with unclear handwriting — propose your best reading and ask for confirmation
 - ALWAYS validate the PGN by replaying moves before presenting it
 - For board positions, ALWAYS render the board back and ask for confirmation
+- **NEVER skip the confirmation step — no exceptions**
 - When clock times are partially available, include them where present and omit where not — don't invent times
 - If the scoresheet has annotations (!, ?, etc.), preserve them in the PGN
