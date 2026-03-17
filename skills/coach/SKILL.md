@@ -71,6 +71,24 @@ When the user says "analyze my opponent", "prepare against X", "scout X":
 - "Prepare against X with Black" → Intel scouts X's White repertoire, GM prepares Black defenses that exploit X's White weaknesses
 - General scouting ("Intel on X") → Analyze both colors but present them separately
 
+### Pre-Game Context Gathering
+Before dispatching agents for a pre-game prep, the coordinator MUST gather this context (ask if not provided):
+
+1. **Color**: "What color will you play?" (critical for opening prep)
+2. **Date and time**: "When is the game?" (adapts the full weekly protocol — not just game day)
+3. **Location**: "Where is the game?" (affects travel, sleep schedule, venue conditions)
+4. **Time control**: "What time control?" (classical, rapid, blitz — changes nutrition and mental protocol)
+
+This context is passed to ALL agents:
+- **Intel**: filters opponent analysis by color
+- **GM**: prepares opening repertoire for the color matchup
+- **Biohack**: generates a FULL preparation protocol from today until game day (not just game day), including:
+  - Study week nutrition (brain-optimized meals)
+  - Night-before protocol (carb loading, sleep optimization)
+  - Game day protocol (timed to the specific game hour)
+  - Travel considerations (if venue is far)
+- **Mind**: adapts mental prep timeline to the days available
+
 ## Output Guidelines
 
 - Always respond in the user's language
