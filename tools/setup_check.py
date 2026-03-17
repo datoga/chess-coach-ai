@@ -64,14 +64,19 @@ def check_python_deps() -> list[dict]:
 
 
 def check_chessagine_mcp() -> dict:
-    """Check if ChessAgine MCP can be started."""
+    """Check if ChessAgine MCP is installed and can be started."""
+    import os
+    chessagine_path = os.environ.get("CHESSAGINE_PATH", "/usr/local/lib/chessagine-mcp")
+    server_js = Path(chessagine_path) / "dist" / "mcp-server.js"
+
     node = shutil.which("node") or shutil.which("nodejs")
-    npx = shutil.which("npx")
     if not node:
         return {"available": False, "reason": "Node.js not installed"}
-    if not npx:
-        return {"available": False, "reason": "npx not found"}
-    return {"available": True, "reason": "npx available, ChessAgine MCP can be started"}
+
+    if server_js.exists():
+        return {"available": True, "reason": f"Installed at {chessagine_path}"}
+
+    return {"available": False, "reason": f"Not found at {chessagine_path}. Run: git clone https://github.com/jalpp/chessagine-mcp.git {chessagine_path} && cd {chessagine_path} && npm install && npm run build:mcp"}
 
 
 def check_lc0() -> dict:

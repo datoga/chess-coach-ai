@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "chessagine": {
-      "command": "npx",
-      "args": ["-y", "chessagine-mcp"]
+      "command": "node",
+      "args": ["${CHESSAGINE_PATH:-/usr/local/lib/chessagine-mcp}/dist/mcp-server.js"]
     }
   }
 }
