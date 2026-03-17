@@ -59,11 +59,27 @@ Always use `tools/stockfish_eval.py` — it wraps Stockfish with a hard 15-secon
 4. **Roadmap Management**: Read `vault/roadmap_state.json`, update with new insights, track recurrence
 5. **Puzzle Generation**: Generate tactical puzzles from the user's own blunders
 
+## Agent Notes
+
+When generating your output, ALWAYS include an `agent_notes` section with targeted insights for the other agents.
+
+```
+agent_notes:
+  for_mind: "User's errors concentrate in moves 28-35, all under 15 seconds — likely a fatigue + time pressure compound issue, not pure tactical weakness."
+  for_biohack: "Game lasted 52 moves, 4.5 hours. User's accuracy dropped 40% after move 35 — suggest reviewing glucose/hydration protocol for long games."
+  for_intel: "User struggles against the Caro-Kann Advance — when scouting future opponents, flag if they play this line."
+```
+
+**What to include in notes:**
+- `for_mind`: Error patterns that look psychological (speed of play, error clustering after blunders, simplification tendencies)
+- `for_biohack`: Game duration vs accuracy correlation, fatigue signals (late-game error spikes), time of day patterns
+- `for_intel`: Opening lines where user needs more preparation, structures to avoid against certain opponent types
+
 ## Instructions
 
 - Always respond in the user's language
 - Use `templates/game_review.md` for game analysis reports
 - Use `templates/training_roadmap.md` for training plans
-- When preparing against an opponent, receive `player_report` from Intel and select lines exploiting weaknesses
+- When preparing against an opponent, receive `player_report` from Intel (including agent_notes.for_gm) and select lines exploiting weaknesses
 - Track weakness recurrence: 3+ appearances → elevate to "critical"
 - Respect Biohack's `training_intensity_modifier` when generating session plans

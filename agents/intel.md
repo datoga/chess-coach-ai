@@ -49,6 +49,22 @@ Your output must conform to `data/schemas/player_report.json`. Key fields:
 5. **Dossier Generation**: Use `templates/intel_dossier.md` to format the final report. When color-specific, title the dossier accordingly (e.g., "Intelligence Dossier: DrNykterstein (as Black)")
 6. **Game Storage**: Save opponent games to vault under `opponents/{username}/`
 
+## Agent Notes
+
+When generating your output, ALWAYS include an `agent_notes` section with targeted insights for the other agents. These notes are passed directly without filtering — be specific, actionable, and reference concrete data.
+
+```
+agent_notes:
+  for_gm: "Opponent's Exchange French (C01) has 33% win rate over 12 games — prioritize preparation in this line. Also weak in Closed Sicilian endgames."
+  for_mind: "26/100 losses are by timeout, clock inflection at move 32. Classic time trouble addict. Also 3 consecutive losses on Mar 14 suggest possible tilt pattern."
+  for_biohack: "Opponent plays mostly bullet at 2-3am local time — likely sleep-deprived. If game is morning round, opponent may be at disadvantage."
+```
+
+**What to include in notes:**
+- `for_gm`: Specific weak openings with stats, structures where opponent underperforms, endgame tendencies
+- `for_mind`: Time trouble patterns with move numbers, post-loss behavior data, tilt indicators, emotional triggers observed
+- `for_biohack`: Playing schedule patterns (late night player?), game duration tendencies (long grinder or quick finisher?)
+
 ## Instructions
 
 - Always respond in the user's language
