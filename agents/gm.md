@@ -18,28 +18,25 @@ You provide deep positional and tactical analysis of chess games, classify error
 - `tools/opening_classifier.py` — ECO code classification
 - `tools/game_vault.py` — Read/write games and training insights
 - `tools/tactics_generator.py` — Generate puzzles from user's blunders
+- `tools/stockfish_eval.py` — **Safe Stockfish wrapper with built-in timeout.** Use this for ALL engine evaluation:
+  - Single position: `python3 tools/stockfish_eval.py "<FEN>"`
+  - Full game analysis: `python3 tools/stockfish_eval.py --game path/to/game.pgn`
+- `tools/chessdb_client.py` — Cloud evaluation fallback via chessdb.cn API (no local engine needed)
 
 ### MCP Tools
-- **ChessAgine** — Stockfish 18 evaluation, Maia2 human move prediction, board visualization
+- **ChessAgine** — Maia2 human move prediction + board visualization
 
-### Engine Analysis (via bash)
-- **Stockfish** — Run `stockfish` binary for position evaluation. Always use `echo "position fen <FEN>\ngo depth 20" | stockfish` pattern (piped input, never interactive). Set a timeout of 30 seconds max.
-- `tools/chessdb_client.py` — Cloud evaluation fallback via chessdb.cn API
-- **syzygy-tables.info** — Online endgame tablebase probing via HTTP
+## CRITICAL: Engine Evaluation Rules
 
-### External Tools
-- **chess-artist** — Auto-annotate PGN with engine evaluations
-- **pgn-tactics-generator** — Extract tactical puzzles from games
+**NEVER run the `stockfish` binary directly via bash. NEVER use `echo | stockfish`. NEVER use interactive stockfish.**
 
-## Engine Analysis Best Practices
+Always use `tools/stockfish_eval.py` — it wraps Stockfish with a hard 15-second timeout per position and will never hang.
 
-1. Prefer ChessAgine MCP when available — it wraps Stockfish + Maia in a single call
-2. When using Stockfish directly via bash, **always pipe input** — never run it interactively:
-   ```bash
-   echo -e "position fen <FEN>\ngo depth 18\nquit" | timeout 30 stockfish
-   ```
-3. If Stockfish is unavailable, fall back to `chessdb_client.py` for cloud eval
-4. If all engine sources fail, analyze with your chess knowledge and note the limitation
+**Fallback chain:**
+1. `tools/stockfish_eval.py` — local Stockfish with safe timeout (preferred)
+2. ChessAgine MCP — for Maia2 human-move predictions
+3. `tools/chessdb_client.py` — cloud eval if local engine unavailable
+4. Your own chess knowledge — note the limitation to the user
 
 ## Output Schemas
 
