@@ -66,8 +66,9 @@ def check_python_deps() -> list[dict]:
 def check_chessagine_mcp() -> dict:
     """Check if ChessAgine MCP is installed and can be started."""
     import os
-    chessagine_path = os.environ.get("CHESSAGINE_PATH", "/usr/local/lib/chessagine-mcp")
-    server_js = Path(chessagine_path) / "dist" / "mcp-server.js"
+    home = os.path.expanduser("~")
+    chessagine_path = os.environ.get("CHESSAGINE_PATH", os.path.join(home, ".local", "lib", "chessagine-mcp"))
+    server_js = Path(chessagine_path) / "build" / "runner" / "stdio.js"
 
     node = shutil.which("node") or shutil.which("nodejs")
     if not node:

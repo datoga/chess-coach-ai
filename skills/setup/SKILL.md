@@ -74,11 +74,13 @@ ChessAgine provides Stockfish + Maia2 + board visualization via MCP. It must be 
 
 ```bash
 # Clone and build
-git clone https://github.com/jalpp/chessagine-mcp.git /usr/local/lib/chessagine-mcp
-cd /usr/local/lib/chessagine-mcp
+git clone https://github.com/jalpp/chessagine-mcp.git ~/.local/lib/chessagine-mcp
+cd ~/.local/lib/chessagine-mcp
 npm install
-npm run build:mcp
+npm run build
 ```
+
+Note: `npm run build` may show an error about `mcpb pack` — this is normal, the TypeScript compilation still succeeds.
 
 If installing to a different path, set the env var:
 ```bash
@@ -88,12 +90,12 @@ export CHESSAGINE_PATH=/your/custom/path/chessagine-mcp
 ## Step 3: Verify ChessAgine MCP
 
 ```bash
-node /usr/local/lib/chessagine-mcp/dist/mcp-server.js
+echo '{}' | node ~/.local/lib/chessagine-mcp/build/runner/stdio.js
 ```
 
-If this outputs MCP server startup info, it's working. Press Ctrl+C to stop.
+If this outputs "ChessAgine MCP Server running on stdio", it's working. Press Ctrl+C to stop.
 
-If you get "Cannot find module", the build failed — re-run `npm run build:mcp` in the chessagine-mcp directory.
+If you get "Cannot find module", the build failed — re-run `npm run build` in the chessagine-mcp directory.
 
 ## Step 4: Re-run diagnostic
 
