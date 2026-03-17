@@ -144,7 +144,13 @@ Ask: "What's your Lichess username? I'll save it so I can import your games and 
 
 If they provide it, save to memory.
 
-### 10. First Action
+### 10. Save Onboarding Status
+
+**IMPORTANT:** When the user completes the onboarding tour (reaches this step), save to memory that onboarding was completed. This prevents the setup wizard from recommending the tour again.
+
+Save a memory note: "User completed chess-coach-ai onboarding tour on [today's date]."
+
+### 11. First Action
 
 After the tour, suggest a concrete first action based on what the user seemed most interested in during the tour. If unsure, suggest:
 > "Want to start by importing your recent games from Lichess? That gives us data to build your first training roadmap."

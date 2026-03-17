@@ -84,16 +84,17 @@ After fixes, re-run the check:
 python3 ${CLAUDE_PLUGIN_ROOT}/tools/setup_check.py
 ```
 
-When all critical items show ✅, tell the user they're ready and suggest:
+When all critical items show ✅, tell the user they're ready.
 
-> "Setup complete! Try: `Intel on DrNykterstein` to test the system."
+## Step 5: Recommend onboarding
 
-## Step 5: Optional — User identity
+Check memory to see if the user has already completed onboarding. If NOT:
 
-Ask the user:
-> "What's your Lichess username? (I'll save it so I can import your games and track your progress)"
+> "Setup complete! Run `/chess-coach-ai:onboard` for an interactive tour of all features with live demos."
 
-If they provide it, save it to memory for future sessions.
+If the user HAS already completed onboarding (memory says so):
+
+> "Setup complete! Everything looks good. You're ready to go."
 
 ## Instructions
 
