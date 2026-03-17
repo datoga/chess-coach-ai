@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Creatine Monohydrate",
+    "dose": "5g/day",
+    "timing": "daily, any time",
+    "purpose": "Increases ATP availability in neurons, improves logical reasoning and working memory, especially under sleep deprivation",
+    "evidence_level": "strong",
+    "contraindications": ["kidney disease"],
+    "notes": "Loading phase optional. Benefits accumulate over 2-4 weeks."
+  },
+  {
+    "name": "L-Theanine + Caffeine",
+    "dose": "200mg L-Theanine / 100mg Caffeine",
+    "timing": "1 hour before game",
+    "purpose": "Promotes alpha brain waves for deep focus without jitters. L-Theanine smooths caffeine's anxiogenic effects, enabling calm concentration",
+    "evidence_level": "strong",
+    "contraindications": ["caffeine sensitivity", "anxiety disorders"],
+    "notes": "Ideal for tournament play. Avoid after 4pm to protect sleep."
+  },
+  {
+    "name": "Omega-3 (DHA)",
+    "dose": "1000-2000mg DHA/day",
+    "timing": "with meals",
+    "purpose": "Essential for neuronal membrane fluidity and synaptic processing speed. Supports long-term cognitive health",
+    "evidence_level": "strong",
+    "contraindications": ["fish allergy (use algae-based)"],
+    "notes": "Choose high-purity supplements. Effects build over months."
+  },
+  {
+    "name": "Bacopa Monnieri",
+    "dose": "300mg/day (55% bacosides)",
+    "timing": "with breakfast",
+    "purpose": "Facilitates dendritic communication, supports long-term memory consolidation. Useful for memorizing complex pawn structures and endgame theory",
+    "evidence_level": "moderate",
+    "contraindications": ["thyroid medication interactions"],
+    "notes": "Requires 8-12 weeks for full effect. May cause mild GI discomfort initially."
+  },
+  {
+    "name": "Magnesium (Glycinate/Threonate)",
+    "dose": "200-400mg elemental Mg/day",
+    "timing": "evening, before bed",
+    "purpose": "Reduces excessive neuronal excitability after intense games. Promotes restorative sleep and muscle relaxation",
+    "evidence_level": "strong",
+    "contraindications": ["kidney disease", "certain heart medications"],
+    "notes": "Threonate form (Magtein) has best brain penetration. Glycinate best for sleep."
+  },
+  {
+    "name": "Vitamin B12 (Methylcobalamin)",
+    "dose": "1000mcg/day",
+    "timing": "morning",
+    "purpose": "Critical for nervous system function and sustained attention. Deficiency directly impairs problem-solving capacity",
+    "evidence_level": "strong",
+    "contraindications": [],
+    "notes": "Especially important for plant-based diets. Sublingual form has better absorption."
+  },
+  {
+    "name": "Vitamin D3",
+    "dose": "2000-4000 IU/day",
+    "timing": "morning, with fat-containing meal",
+    "purpose": "Supports cognitive function, mood regulation, and immune resilience during tournament travel",
+    "evidence_level": "moderate",
+    "contraindications": ["hypercalcemia"],
+    "notes": "Test blood levels before supplementing. Pair with K2 for optimal absorption."
+  }
+]

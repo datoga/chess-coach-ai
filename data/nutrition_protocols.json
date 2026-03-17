@@ -1,0 +1,81 @@
+{
+  "pre_tournament": {
+    "phase": "pre_tournament",
+    "timing": "3 days before competition",
+    "recommendations": [
+      {
+        "timing": "3 days before",
+        "recommendation": "Carbohydrate loading: 8-12g/kg body weight of complex carbs daily",
+        "rationale": "Maximizes hepatic and muscular glycogen stores for sustained mental energy"
+      },
+      {
+        "timing": "night before",
+        "recommendation": "Dinner rich in complex carbs (pasta, rice, sweet potatoes) with lean protein",
+        "rationale": "Ensures glycogen saturation by morning without digestive discomfort"
+      }
+    ]
+  },
+  "game_day": {
+    "phase": "game_day",
+    "timing": "day of competition",
+    "recommendations": [
+      {
+        "timing": "breakfast (3-4h before game)",
+        "recommendation": "Oats, eggs, spinach, nuts — slow-release energy with neurotransmitter precursors",
+        "rationale": "Provides sustained glucose release and precursors for dopamine/acetylcholine synthesis"
+      },
+      {
+        "timing": "1-3h before game",
+        "recommendation": "Light meal: grilled chicken with rice or fish with vegetables",
+        "rationale": "Avoid blood flow hijacking to digestive system during critical thinking"
+      },
+      {
+        "timing": "during game (hourly)",
+        "recommendation": "Nuts, dates, dark chocolate (>70%), banana. Small portions every 45-60 min",
+        "rationale": "Micro-feeding prevents glucose fluctuations and maintains steady brain fuel"
+      },
+      {
+        "timing": "during game (hydration)",
+        "recommendation": "Water with electrolytes (sodium, potassium). Avoid pure water in excess",
+        "rationale": "Prevents hyponatremia and maintains neural signal transmission speed"
+      },
+      {
+        "timing": "post-game",
+        "recommendation": "Protein + carb recovery shake (3:1 ratio) within 30 minutes",
+        "rationale": "Replenishes depleted neurotransmitters and repairs tissue stress from sustained cortisol"
+      }
+    ]
+  },
+  "between_rounds": {
+    "phase": "between_rounds",
+    "timing": "rest days during tournament",
+    "recommendations": [
+      {
+        "timing": "morning",
+        "recommendation": "Light breakfast, 20-minute walk, no intensive study",
+        "rationale": "Active recovery promotes blood flow without adding cognitive load"
+      },
+      {
+        "timing": "afternoon",
+        "recommendation": "Review previous game briefly, then disconnect from chess",
+        "rationale": "Prevents analysis paralysis and allows subconscious pattern consolidation"
+      }
+    ]
+  },
+  "rest_day": {
+    "phase": "rest_day",
+    "timing": "non-competition days",
+    "recommendations": [
+      {
+        "timing": "all day",
+        "recommendation": "Balanced meals with emphasis on anti-inflammatory foods (berries, fatty fish, leafy greens)",
+        "rationale": "Reduces neuroinflammation from sustained cognitive effort"
+      },
+      {
+        "timing": "evening",
+        "recommendation": "No screens 90 minutes before bed. Chamomile tea or tart cherry juice",
+        "rationale": "Maximizes REM sleep for pattern consolidation learned during training"
+      }
+    ]
+  }
+}
