@@ -1,0 +1,32 @@
+[
+  {
+    "eval_id": "intel_profile_lookup",
+    "eval_name": "Profile lookup returns rating info, style, and platform",
+    "prompt": "Look up the profile for lichess user MagnusCarlsen",
+    "assertions": [
+      {"assertion": "Includes rating information", "check_type": "llm_graded", "rubric": "Does the response mention the player's rating or rating category on the platform?"},
+      {"assertion": "Includes style classification", "check_type": "llm_graded", "rubric": "Does it classify or describe the player's playing style (e.g. positional, tactical, aggressive)?"},
+      {"assertion": "Confirms platform source", "check_type": "content_contains", "value": ["lichess", "chess.com", "platform", "profile"]}
+    ]
+  },
+  {
+    "eval_id": "intel_weakness_detection",
+    "eval_name": "Weakness detection flags specific openings and win rates",
+    "prompt": "Analyse the weaknesses of lichess user TestOpponent456 based on their recent games",
+    "assertions": [
+      {"assertion": "Flags specific openings as weak", "check_type": "llm_graded", "rubric": "Does it name specific openings or variations where the opponent struggles?"},
+      {"assertion": "Mentions win/loss rates", "check_type": "llm_graded", "rubric": "Does it reference win rates, loss rates, or performance percentages for specific openings?"},
+      {"assertion": "Contains opening names or ECO codes", "check_type": "content_contains", "value": ["%", "win", "loss", "draw", "rate"]}
+    ]
+  },
+  {
+    "eval_id": "intel_import_games",
+    "eval_name": "Game import confirms download count and source",
+    "prompt": "Import the last 50 games from lichess user TestPlayer789",
+    "assertions": [
+      {"assertion": "Confirms games were downloaded", "check_type": "llm_graded", "rubric": "Does the response confirm that games were successfully fetched or imported?"},
+      {"assertion": "States count of games imported", "check_type": "llm_graded", "rubric": "Does it mention a specific number of games that were imported or downloaded?"},
+      {"assertion": "References the platform or source", "check_type": "content_contains", "value": ["lichess", "imported", "downloaded", "fetched", "games"]}
+    ]
+  }
+]

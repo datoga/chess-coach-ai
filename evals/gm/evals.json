@@ -1,0 +1,32 @@
+[
+  {
+    "eval_id": "gm_game_analysis",
+    "eval_name": "Game analysis reports ACPL/DQM, critical moments, and training recs",
+    "prompt": "Analyse this game: 1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Bg5 Be7 5.e3 O-O 6.Nf3 Nbd7 7.Rc1 c6 8.Bd3 dxc4 9.Bxc4 Nd5 10.Bxe7 Qxe7 0-1",
+    "assertions": [
+      {"assertion": "Provides ACPL or DQM metric", "check_type": "llm_graded", "rubric": "Does it include an average centipawn loss, decision quality metric, or equivalent numeric accuracy score?"},
+      {"assertion": "Identifies critical moments", "check_type": "llm_graded", "rubric": "Does it highlight specific move numbers or positions as key turning points or decision moments?"},
+      {"assertion": "Recommends targeted training", "check_type": "llm_graded", "rubric": "Does it suggest specific training exercises, puzzle types, or study materials based on the errors found?"}
+    ]
+  },
+  {
+    "eval_id": "gm_training_plan",
+    "eval_name": "Training plan balances phases, prioritises weaknesses, structures sessions",
+    "prompt": "Create a 4-week training plan for a 1600 Elo player who struggles with endgames and blunders in time pressure",
+    "assertions": [
+      {"assertion": "Balances opening, middlegame, and endgame phases", "check_type": "llm_graded", "rubric": "Does the plan allocate time to multiple phases of the game (opening, middlegame, endgame)?"},
+      {"assertion": "Prioritises identified weaknesses", "check_type": "llm_graded", "rubric": "Does it give extra focus to endgames and time-pressure situations as specified?"},
+      {"assertion": "Structures individual sessions", "check_type": "llm_graded", "rubric": "Does it define session durations, frequency, or specific activities per session rather than only vague goals?"}
+    ]
+  },
+  {
+    "eval_id": "gm_puzzle_generation",
+    "eval_name": "Puzzle generation provides FEN positions with solution hints",
+    "prompt": "Generate 3 tactical puzzles based on the Sicilian Najdorf at the 1600-1800 difficulty level",
+    "assertions": [
+      {"assertion": "Includes FEN strings for positions", "check_type": "content_contains", "value": ["/", "w ", "b ", "KQ", " 0 ", " 1 "]},
+      {"assertion": "Provides solution hints", "check_type": "llm_graded", "rubric": "Does each puzzle include a hint, first move, or thematic clue to guide the solver?"},
+      {"assertion": "References Sicilian or Najdorf context", "check_type": "content_contains", "value": ["Sicilian", "Najdorf", "B90", "B96", "B97", "B98", "B99"]}
+    ]
+  }
+]

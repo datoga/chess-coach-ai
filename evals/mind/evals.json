@@ -1,0 +1,32 @@
+[
+  {
+    "eval_id": "mind_tilt_detection",
+    "eval_name": "Tilt detection identifies type, cites evidence, prescribes intervention",
+    "prompt": "I just played 5 games in a row after losing my first game. Each game I played faster and more aggressively. Here are my times per move: [20s, 15s, 8s, 4s, 2s average]",
+    "assertions": [
+      {"assertion": "Identifies tilt type", "check_type": "llm_graded", "rubric": "Does it classify the type of tilt (e.g. frustration tilt, speed tilt, aggression tilt, revenge tilt)?"},
+      {"assertion": "Cites evidence from input", "check_type": "llm_graded", "rubric": "Does it reference the pattern of decreasing move times or increasing aggression as evidence for the diagnosis?"},
+      {"assertion": "Prescribes an intervention", "check_type": "content_contains", "value": ["break", "stop", "rest", "breathe", "reset", "pause", "quit", "session"]}
+    ]
+  },
+  {
+    "eval_id": "mind_session_check",
+    "eval_name": "Session check recommends play/study/rest with clear reasoning",
+    "prompt": "I want to start a chess session. I slept 7 hours, ate well, feel slightly stressed from work. Should I play, study, or rest?",
+    "assertions": [
+      {"assertion": "Makes a clear recommendation", "check_type": "llm_graded", "rubric": "Does it explicitly recommend one of: play, study, or rest as the primary activity?"},
+      {"assertion": "Provides reasoning for the recommendation", "check_type": "llm_graded", "rubric": "Does it explain why it chose that recommendation based on the provided conditions (sleep, nutrition, stress level)?"},
+      {"assertion": "Addresses the stress factor", "check_type": "llm_graded", "rubric": "Does it specifically acknowledge the work stress as a factor in the recommendation?"}
+    ]
+  },
+  {
+    "eval_id": "mind_time_analysis",
+    "eval_name": "Time analysis detects time trouble and classifies move speeds",
+    "prompt": "Analyse my time usage in this game. I had 10 minutes each. Moves 1-15: 20s avg, moves 16-25: 45s avg, moves 26-35: 8s avg, moves 36-40: 2s avg.",
+    "assertions": [
+      {"assertion": "Detects time trouble", "check_type": "llm_graded", "rubric": "Does it identify that the player entered time trouble in the later phase of the game?"},
+      {"assertion": "Classifies move speed phases", "check_type": "llm_graded", "rubric": "Does it distinguish between different speed phases or segments of the game (e.g. normal, slow, rushed, blitz-like)?"},
+      {"assertion": "References time trouble or clock", "check_type": "content_contains", "value": ["time", "clock", "pressure", "seconds", "minutes", "speed", "rushed"]}
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "eval_id": "biohack_pre_game_protocol",
+    "eval_name": "Pre-game protocol covers nutrition, supplements, physical, and mental prep",
+    "prompt": "Give me my pre-game protocol for a rated tournament game starting in 2 hours",
+    "assertions": [
+      {"assertion": "Includes nutrition recommendations", "check_type": "llm_graded", "rubric": "Does it recommend what to eat or drink before the game?"},
+      {"assertion": "Includes supplement guidance", "check_type": "llm_graded", "rubric": "Does it mention supplements, caffeine timing, or cognitive enhancers?"},
+      {"assertion": "Includes physical preparation", "check_type": "llm_graded", "rubric": "Does it recommend physical activity, stretching, or movement before the game?"},
+      {"assertion": "Includes mental preparation", "check_type": "llm_graded", "rubric": "Does it include mental warm-up, breathing, visualisation, or focus exercises?"}
+    ]
+  },
+  {
+    "eval_id": "biohack_low_energy_check",
+    "eval_name": "Low energy check emits intensity modifier and alerts",
+    "prompt": "Check my readiness. I slept 4 hours, skipped breakfast, and feel fatigued. I want to do a 2-hour training session.",
+    "assertions": [
+      {"assertion": "Mentions intensity modifier", "check_type": "llm_graded", "rubric": "Does it explicitly suggest reducing the training intensity, duration, or volume?"},
+      {"assertion": "Generates alerts or warnings", "check_type": "llm_graded", "rubric": "Does it flag alerts or warnings for any of the risk factors (low sleep, no food, fatigue)?"},
+      {"assertion": "References readiness factors", "check_type": "content_contains", "value": ["sleep", "fatigue", "energy", "food", "eat", "rest", "recover"]}
+    ]
+  },
+  {
+    "eval_id": "biohack_tournament_prep",
+    "eval_name": "Tournament prep advice is phase-appropriate",
+    "prompt": "I have a 5-round tournament this weekend starting Saturday morning. Today is Thursday evening. What should I do for each remaining phase?",
+    "assertions": [
+      {"assertion": "Addresses pre-tournament phase (Thursday/Friday)", "check_type": "llm_graded", "rubric": "Does it give specific advice for the days before the tournament starts?"},
+      {"assertion": "Addresses in-tournament phase (during rounds)", "check_type": "llm_graded", "rubric": "Does it give specific advice for what to do between rounds or during the tournament days?"},
+      {"assertion": "Covers recovery or post-round advice", "check_type": "llm_graded", "rubric": "Does it address how to recover between rounds or at the end of each day?"}
+    ]
+  }
+]

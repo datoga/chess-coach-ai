@@ -1,0 +1,54 @@
+[
+  {
+    "eval_id": "prep_flow",
+    "eval_name": "Pre-game prep produces complete dossier",
+    "prompt": "Prepare my game against lichess user TestOpponent123",
+    "assertions": [
+      {"assertion": "Response includes opponent rating", "check_type": "llm_graded", "rubric": "Does the response mention the opponent's rating on lichess?"},
+      {"assertion": "Response includes opening weaknesses", "check_type": "llm_graded", "rubric": "Does the response identify specific openings where the opponent underperforms?"},
+      {"assertion": "Response includes recommended preparation lines", "check_type": "llm_graded", "rubric": "Does it suggest concrete opening lines to play against this opponent?"},
+      {"assertion": "Response includes pre-game protocol", "check_type": "llm_graded", "rubric": "Does it include nutrition, rest, or mental preparation advice?"}
+    ]
+  },
+  {
+    "eval_id": "game_review_flow",
+    "eval_name": "Game review identifies errors with cognitive classification",
+    "prompt": "Review this game: 1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3 d6 8.c3 O-O 9.h3 Nb8 10.d4 Nbd7 1-0",
+    "assertions": [
+      {"assertion": "Identifies key moments", "check_type": "llm_graded", "rubric": "Does it flag specific moves as important decision points?"},
+      {"assertion": "Classifies error types", "check_type": "content_contains", "value": ["pattern_recognition", "conceptual", "tactical", "time_pressure", "impuls", "paralysis"]},
+      {"assertion": "Provides DQM or accuracy score", "check_type": "llm_graded", "rubric": "Does it include a numeric quality or accuracy metric?"},
+      {"assertion": "Suggests specific training", "check_type": "llm_graded", "rubric": "Does it recommend targeted exercises for the errors found?"}
+    ]
+  },
+  {
+    "eval_id": "biohack_low_sleep",
+    "eval_name": "Biohack adjusts plan for poor sleep",
+    "prompt": "I'm starting a training session. I only slept 4 hours and haven't eaten today.",
+    "assertions": [
+      {"assertion": "Reduces training intensity", "check_type": "llm_graded", "rubric": "Does it suggest reducing study load or intensity?"},
+      {"assertion": "Addresses nutrition gap", "check_type": "llm_graded", "rubric": "Does it recommend eating before studying?"},
+      {"assertion": "Does not assign heavy new material", "check_type": "llm_graded", "rubric": "Does it avoid assigning new opening memorization or complex calculation drills?"}
+    ]
+  },
+  {
+    "eval_id": "tilt_detection",
+    "eval_name": "Mind detects tilt from game sequence",
+    "prompt": "I just lost 3 games in a row playing very aggressively after my first loss. Here are the games: [game1 PGN] [game2 PGN] [game3 PGN]",
+    "assertions": [
+      {"assertion": "Detects tilt pattern", "check_type": "content_contains", "value": ["tilt", "emotional", "frustration", "pattern", "aggressive"]},
+      {"assertion": "Recommends stopping play", "check_type": "llm_graded", "rubric": "Does it suggest taking a break from competitive games?"},
+      {"assertion": "Offers recovery protocol", "check_type": "llm_graded", "rubric": "Does it provide a specific recovery activity (breathing, review, rest)?"}
+    ]
+  },
+  {
+    "eval_id": "save_game_vault",
+    "eval_name": "Saves game to vault with metadata",
+    "prompt": "Save this game: [Event \"Casual\"]\n[White \"me\"]\n[Black \"opponent\"]\n[Result \"1-0\"]\n\n1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 1-0",
+    "assertions": [
+      {"assertion": "Confirms save", "check_type": "llm_graded", "rubric": "Does it confirm the game was saved?"},
+      {"assertion": "Tags with opening", "check_type": "content_contains", "value": ["Sicilian", "B50", "B54", "B56", "B90"]},
+      {"assertion": "Includes metadata", "check_type": "llm_graded", "rubric": "Does it mention result or opening name from the PGN?"}
+    ]
+  }
+]
