@@ -1,4 +1,5 @@
 """Lichess API client using berserk library."""
+import json
 import berserk
 import requests
 from typing import Optional
@@ -45,8 +46,15 @@ class LichessClient:
         return self._request_explorer(params)
 
     def _request_explorer(self, params: dict) -> dict:
-        """Raw request to Lichess Opening Explorer API."""
+        """Raw request to Lichess Opening Explorer API.
+
+        The player endpoint can return NDJSON (multiple JSON lines).
+        We parse only the first line which contains the root position data.
+        """
         url = "https://explorer.lichess.ovh/player"
         resp = requests.get(url, params=params, timeout=30)
         resp.raise_for_status()
-        return resp.json()
+        # Handle NDJSON: parse first line only (root position)
+        text = resp.text.strip()
+        first_line = text.split("\n")[0]
+        return json.loads(first_line)
