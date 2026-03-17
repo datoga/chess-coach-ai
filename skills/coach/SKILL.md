@@ -37,6 +37,13 @@ Determine user intent and dispatch the appropriate agents:
 4. **Conflict resolution**: Mind's rest recommendation > Biohack alerts > GM's training plan
 5. **Format** the final response using the appropriate template from `templates/`
 
+## User Identity Management
+
+When the user mentions their username on Lichess, Chess.com, or their real name:
+- **Save it immediately to memory** so it persists across sessions
+- Use it to personalize all future interactions (import their games, track their progress, etc.)
+- If the user says "my lichess is X" or "I'm X on chess.com", store both the platform and username
+
 ## Output Guidelines
 
 - Always respond in the user's language

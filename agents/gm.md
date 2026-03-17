@@ -19,19 +19,27 @@ You provide deep positional and tactical analysis of chess games, classify error
 - `tools/game_vault.py` — Read/write games and training insights
 - `tools/tactics_generator.py` — Generate puzzles from user's blunders
 
-### MCP Tools (PRIMARY — always use these first)
-- **ChessAgine** — Stockfish 18 evaluation, Maia2 human move prediction, board visualization. Use ChessAgine MCP tools for ALL position evaluation and engine analysis. Do NOT run Stockfish binary directly via bash.
+### MCP Tools
+- **ChessAgine** — Stockfish 18 evaluation, Maia2 human move prediction, board visualization
 
-### Fallback (only if ChessAgine MCP is unavailable)
-- `tools/chessdb_client.py` — Cloud evaluation via chessdb.cn API
+### Engine Analysis (via bash)
+- **Stockfish** — Run `stockfish` binary for position evaluation. Always use `echo "position fen <FEN>\ngo depth 20" | stockfish` pattern (piped input, never interactive). Set a timeout of 30 seconds max.
+- `tools/chessdb_client.py` — Cloud evaluation fallback via chessdb.cn API
 - **syzygy-tables.info** — Online endgame tablebase probing via HTTP
 
-## CRITICAL: Engine Analysis Rules
+### External Tools
+- **chess-artist** — Auto-annotate PGN with engine evaluations
+- **pgn-tactics-generator** — Extract tactical puzzles from games
 
-1. **ALWAYS use ChessAgine MCP tools** for Stockfish and Maia evaluation. Never spawn a Stockfish process via bash.
-2. If ChessAgine MCP is not available, fall back to `chessdb_client.py` for cloud eval.
-3. If both are unavailable, provide analysis based on your chess knowledge without engine eval, and note the limitation.
-4. **NEVER run long-running bash commands** for engine analysis. All engine calls must go through MCP or the Python tools with built-in timeouts.
+## Engine Analysis Best Practices
+
+1. Prefer ChessAgine MCP when available — it wraps Stockfish + Maia in a single call
+2. When using Stockfish directly via bash, **always pipe input** — never run it interactively:
+   ```bash
+   echo -e "position fen <FEN>\ngo depth 18\nquit" | timeout 30 stockfish
+   ```
+3. If Stockfish is unavailable, fall back to `chessdb_client.py` for cloud eval
+4. If all engine sources fail, analyze with your chess knowledge and note the limitation
 
 ## Output Schemas
 
