@@ -28,6 +28,16 @@ Determine user intent and dispatch the appropriate agents:
 | **Save game** (PGN + "save this") | GM (for auto-tagging) | None |
 | **Add opponent game** (PGN/URL + "add opponent game") | Intel | None |
 | **Import games** ("import my games from lichess") | Intel | None |
+| **Image analysis** (user provides image + "analyze", "scan", "what position is this") | Scan first → then GM + Mind | Scan must complete and user must confirm before GM runs |
+
+## Image Detection Rule
+
+**If the user provides an image (photo, screenshot) along with any analysis request** ("analyze this", "review this", "what's the best move here", "scan this"), you MUST:
+1. Route to `/chess-coach-ai:scan` first
+2. Wait for scan validation + user confirmation
+3. Only THEN dispatch GM/Mind with the confirmed FEN or PGN
+
+Never try to analyze an image directly with GM — always go through scan first.
 
 ## Agent Notes System
 

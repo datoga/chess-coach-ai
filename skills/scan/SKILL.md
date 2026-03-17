@@ -105,7 +105,7 @@ FEN: rnbqkb1r/pppppppp/5n2/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 2 3
 
 The flow is always:
 1. Scan the image → generate PGN or FEN
-2. **Render the result back to the user** (board_renderer for FEN, move list for PGN)
+2. **Render the result back to the user using board_renderer.py** — ALWAYS use `python3 tools/board_renderer.py "<FEN>"` to show the board in the terminal. For PGN, render the final position AND any critical positions. Never show just text — always render the board visually.
 3. **Ask for explicit confirmation**: "Is this correct?"
 4. **If user says no** → ask what's wrong, fix, re-render, ask again
 5. **If user says yes** → ONLY THEN offer to save/analyze
