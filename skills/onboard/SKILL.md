@@ -21,21 +21,23 @@ Present the 4 agents with a brief description of each:
 
 Tell the user you'll demo each one.
 
+**IMPORTANT: During the entire onboard, ALL demos use QUICK profiles to keep it fast. Never use normal or deep during onboarding.**
+
 ### 2. Demo: Intel — Player Profiling
 
 Tell the user:
-> "Let's start with Intel. Give me a Lichess username and I'll show you what our scouting agent finds."
+> Give me a Lichess username and I'll show you what our scouting agent finds.
 
-If the user provides a username, run a quick Intel scout. If not, use "DrNykterstein" (Magnus Carlsen) as example.
+If the user provides a username, run a **quick** Intel scout (last 10-15 games only, basic stats). If not, use "DrNykterstein" (Magnus Carlsen) as example.
 
-Show: ratings, style archetype, opening weaknesses, comfort lines, clock inflection point.
+Show: ratings, main openings, win rate. Keep it brief — this is a demo, not a full dossier.
 
 ### 3. Demo: GM — Game Analysis
 
 Tell the user:
-> "Now let's see GM in action. Paste a PGN of one of your games, or I'll analyze a sample game."
+> Paste a PGN of one of your games, or I'll analyze a sample game.
 
-If user pastes a PGN, analyze it with `stockfish_eval.py --game ... quick` (use quick profile for the demo).
+If user pastes a PGN, analyze it with `stockfish_eval.py --game ... quick` (~30 seconds).
 
 Show: ACPL, DQM score, 2-3 critical moments with board rendering, error classifications, training recommendations.
 
