@@ -1,0 +1,114 @@
+[
+  {
+    "eval_id": "intel-pos-01",
+    "eval_name": "Scout user profile",
+    "query": "Scout the lichess profile for user grandmaster_pete",
+    "should_trigger": true,
+    "note": "User scouting is the primary intel agent responsibility"
+  },
+  {
+    "eval_id": "intel-pos-02",
+    "eval_name": "Weakness analysis from games",
+    "query": "Analyze my opponent's weaknesses based on their last 20 games",
+    "should_trigger": true,
+    "note": "Weakness analysis from game history is a core intel task"
+  },
+  {
+    "eval_id": "intel-pos-03",
+    "eval_name": "Import games from lichess",
+    "query": "Import the last 30 games of user blitz_king_99 from lichess",
+    "should_trigger": true,
+    "note": "Downloading opponent games for analysis is an intel operation"
+  },
+  {
+    "eval_id": "intel-pos-04",
+    "eval_name": "Opening explorer query",
+    "query": "What openings does DrNykterstein play most as White?",
+    "should_trigger": true,
+    "note": "Opening repertoire exploration for a specific player is intel work"
+  },
+  {
+    "eval_id": "intel-pos-05",
+    "eval_name": "Lookup player profile stats",
+    "query": "Get the rating history and stats for lichess user positional_petra",
+    "should_trigger": true,
+    "note": "Profile stats retrieval is a direct intel agent function"
+  },
+  {
+    "eval_id": "intel-pos-06",
+    "eval_name": "Opponent preparation report",
+    "query": "Generate an opponent prep report for my next game against TacticsWizard",
+    "should_trigger": true,
+    "note": "Prep report generation drives the intel agent's scouting pipeline"
+  },
+  {
+    "eval_id": "intel-pos-07",
+    "eval_name": "Download games from chess.com",
+    "query": "Download the last 50 games of player king_hunter from chess.com",
+    "should_trigger": true,
+    "note": "Cross-platform game downloading is part of intel data collection"
+  },
+  {
+    "eval_id": "intel-pos-08",
+    "eval_name": "Playing style analysis",
+    "query": "What is the playing style of my opponent — positional or tactical?",
+    "should_trigger": true,
+    "note": "Style classification is a key output of the intel agent"
+  },
+  {
+    "eval_id": "intel-neg-01",
+    "eval_name": "Engine position analysis",
+    "query": "Analyze this position with Stockfish: r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R",
+    "should_trigger": false,
+    "note": "Engine evaluation is the GM agent's domain, not intel"
+  },
+  {
+    "eval_id": "intel-neg-02",
+    "eval_name": "Calculate DQM score",
+    "query": "Calculate my decision quality metric for this game",
+    "should_trigger": false,
+    "note": "DQM calculation is a GM agent analytical task"
+  },
+  {
+    "eval_id": "intel-neg-03",
+    "eval_name": "Nutrition advice",
+    "query": "What should I eat before a long tournament day?",
+    "should_trigger": false,
+    "note": "Nutritional guidance belongs to the biohack agent"
+  },
+  {
+    "eval_id": "intel-neg-04",
+    "eval_name": "Tilt detection",
+    "query": "Am I tilting based on my last 5 games?",
+    "should_trigger": false,
+    "note": "Tilt detection is the mind agent's responsibility"
+  },
+  {
+    "eval_id": "intel-neg-05",
+    "eval_name": "Create training plan",
+    "query": "Build me a 4-week training plan focusing on endgames",
+    "should_trigger": false,
+    "note": "Training plan creation is a GM/coach task, not intel"
+  },
+  {
+    "eval_id": "intel-neg-06",
+    "eval_name": "Save game to vault",
+    "query": "Save this annotated game to my personal vault",
+    "should_trigger": false,
+    "note": "Vault storage is a coach-managed operation"
+  },
+  {
+    "eval_id": "intel-neg-07",
+    "eval_name": "Stockfish evaluation request",
+    "query": "Run Stockfish on my last game and show me the blunders",
+    "should_trigger": false,
+    "note": "Stockfish-based game review is the GM agent's function"
+  },
+  {
+    "eval_id": "intel-neg-08",
+    "eval_name": "Endgame study",
+    "query": "Give me rook endgame exercises to study",
+    "should_trigger": false,
+    "note": "Endgame study material generation is a GM agent task"
+  }
+]

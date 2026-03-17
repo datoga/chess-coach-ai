@@ -1,0 +1,114 @@
+[
+  {
+    "eval_id": "mind-pos-01",
+    "eval_name": "Detect tilt from recent games",
+    "query": "Am I tilting? I've lost 6 games in a row in the last hour",
+    "should_trigger": true,
+    "note": "Tilt detection from loss streaks is the mind agent's primary signal"
+  },
+  {
+    "eval_id": "mind-pos-02",
+    "eval_name": "Analyze time pressure patterns",
+    "query": "Analyze my time usage patterns — do I rush when I'm losing?",
+    "should_trigger": true,
+    "note": "Time pattern analysis under pressure is a mind agent insight"
+  },
+  {
+    "eval_id": "mind-pos-03",
+    "eval_name": "Post-loss behavior analysis",
+    "query": "What do I do differently after a loss — do I play worse?",
+    "should_trigger": true,
+    "note": "Post-loss behavioral pattern detection is a core mind agent task"
+  },
+  {
+    "eval_id": "mind-pos-04",
+    "eval_name": "Decision speed under stress",
+    "query": "How fast am I making decisions when the game is critical versus equal?",
+    "should_trigger": true,
+    "note": "Decision speed variance under pressure is a mind metric"
+  },
+  {
+    "eval_id": "mind-pos-05",
+    "eval_name": "Emotional state assessment after loss",
+    "query": "I just blundered a winning position — help me assess my emotional state",
+    "should_trigger": true,
+    "note": "Emotional state check after a critical error is a mind agent trigger"
+  },
+  {
+    "eval_id": "mind-pos-06",
+    "eval_name": "Stress management during game",
+    "query": "I feel very stressed mid-game. How can I manage this?",
+    "should_trigger": true,
+    "note": "In-game stress management guidance is a mind agent responsibility"
+  },
+  {
+    "eval_id": "mind-pos-07",
+    "eval_name": "Session readiness check",
+    "query": "Am I mentally ready to play a rated game right now?",
+    "should_trigger": true,
+    "note": "Pre-session mental readiness assessment is a mind agent function"
+  },
+  {
+    "eval_id": "mind-pos-08",
+    "eval_name": "Resilience assessment",
+    "query": "How resilient am I when facing time scrambles based on past games?",
+    "should_trigger": true,
+    "note": "Resilience profiling from historical game data is a mind agent task"
+  },
+  {
+    "eval_id": "mind-neg-01",
+    "eval_name": "Opening theory question",
+    "query": "What is the main line of the Ruy Lopez after 3...a6?",
+    "should_trigger": false,
+    "note": "Opening theory is the GM agent's domain"
+  },
+  {
+    "eval_id": "mind-neg-02",
+    "eval_name": "Stockfish evaluation",
+    "query": "Run Stockfish on this position and give me the best move",
+    "should_trigger": false,
+    "note": "Engine evaluation belongs to the GM agent"
+  },
+  {
+    "eval_id": "mind-neg-03",
+    "eval_name": "Nutrition advice",
+    "query": "What should I eat to maintain energy during a long classical game?",
+    "should_trigger": false,
+    "note": "Nutritional guidance is the biohack agent's scope"
+  },
+  {
+    "eval_id": "mind-neg-04",
+    "eval_name": "Opponent scouting",
+    "query": "Scout my next opponent and find their opening weaknesses",
+    "should_trigger": false,
+    "note": "Opponent scouting is the intel agent's responsibility"
+  },
+  {
+    "eval_id": "mind-neg-05",
+    "eval_name": "Save game to vault",
+    "query": "Save this game to my personal vault for later review",
+    "should_trigger": false,
+    "note": "Vault management is a coach-orchestrated operation"
+  },
+  {
+    "eval_id": "mind-neg-06",
+    "eval_name": "Supplement recommendation",
+    "query": "Which supplements help with cognitive performance during chess?",
+    "should_trigger": false,
+    "note": "Supplement recommendations are scoped to the biohack agent"
+  },
+  {
+    "eval_id": "mind-neg-07",
+    "eval_name": "Create training syllabus",
+    "query": "Create a 6-week chess improvement syllabus for me",
+    "should_trigger": false,
+    "note": "Training syllabus creation is a GM/coach agent task"
+  },
+  {
+    "eval_id": "mind-neg-08",
+    "eval_name": "Download games from lichess",
+    "query": "Download my last 100 games from lichess for analysis",
+    "should_trigger": false,
+    "note": "Game downloading is an intel agent data pipeline operation"
+  }
+]

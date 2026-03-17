@@ -1,0 +1,142 @@
+[
+  {
+    "eval_id": "coach-pos-01",
+    "eval_name": "Prepare game against opponent",
+    "query": "Prepare my game against DrNykterstein",
+    "should_trigger": true,
+    "note": "Opponent preparation is a core coach workflow"
+  },
+  {
+    "eval_id": "coach-pos-02",
+    "eval_name": "Review game with PGN",
+    "query": "Review this game: 1.e4 e5 2.Nf3 Nc6 3.Bb5",
+    "should_trigger": true,
+    "note": "Game review with inline PGN is a direct coach trigger"
+  },
+  {
+    "eval_id": "coach-pos-03",
+    "eval_name": "Create training plan",
+    "query": "Create a training plan for me",
+    "should_trigger": true,
+    "note": "Training plan creation is a top-level coach responsibility"
+  },
+  {
+    "eval_id": "coach-pos-04",
+    "eval_name": "Look up lichess player profile",
+    "query": "Who is this player on lichess: magnus_fan_42",
+    "should_trigger": true,
+    "note": "Player profile lookup on lichess is routed through the coach"
+  },
+  {
+    "eval_id": "coach-pos-05",
+    "eval_name": "Save game to collection",
+    "query": "Save this game to my collection",
+    "should_trigger": true,
+    "note": "Saving a game to the vault is a coach-managed operation"
+  },
+  {
+    "eval_id": "coach-pos-06",
+    "eval_name": "Training session start with sleep context",
+    "query": "I'm starting a training session, slept 5 hours",
+    "should_trigger": true,
+    "note": "Session start with biometric context triggers the coach orchestrator"
+  },
+  {
+    "eval_id": "coach-pos-07",
+    "eval_name": "Import recent games from lichess",
+    "query": "Import my last 50 games from lichess",
+    "should_trigger": true,
+    "note": "Game import from lichess is a coach-initiated data pipeline"
+  },
+  {
+    "eval_id": "coach-pos-08",
+    "eval_name": "Add opponent game from PGN",
+    "query": "Add this opponent game: [Event \"Rated Blitz\"] 1.d4 Nf6 2.c4 e6",
+    "should_trigger": true,
+    "note": "Adding a specific opponent game is a scouting/vault action under coach"
+  },
+  {
+    "eval_id": "coach-pos-09",
+    "eval_name": "Ask about Sicilian weaknesses",
+    "query": "What are my weaknesses in the Sicilian?",
+    "should_trigger": true,
+    "note": "Opening weakness analysis is part of the coach's strategic review"
+  },
+  {
+    "eval_id": "coach-pos-10",
+    "eval_name": "Tournament preparation advice",
+    "query": "How should I prepare for a rapid tournament?",
+    "should_trigger": true,
+    "note": "Tournament preparation planning is a core coach use case"
+  },
+  {
+    "eval_id": "coach-neg-01",
+    "eval_name": "Weather query",
+    "query": "What's the weather today?",
+    "should_trigger": false,
+    "note": "Weather is unrelated to chess coaching"
+  },
+  {
+    "eval_id": "coach-neg-02",
+    "eval_name": "Software debugging",
+    "query": "Fix the bug in auth.py",
+    "should_trigger": false,
+    "note": "Code debugging is outside the chess coach domain"
+  },
+  {
+    "eval_id": "coach-neg-03",
+    "eval_name": "Email writing",
+    "query": "Write me an email to my boss",
+    "should_trigger": false,
+    "note": "Email composition is unrelated to chess"
+  },
+  {
+    "eval_id": "coach-neg-04",
+    "eval_name": "Cooking question",
+    "query": "How do I cook pasta?",
+    "should_trigger": false,
+    "note": "Culinary advice is outside the chess coach scope"
+  },
+  {
+    "eval_id": "coach-neg-05",
+    "eval_name": "Joke request",
+    "query": "Tell me a joke",
+    "should_trigger": false,
+    "note": "Entertainment requests should not trigger the coach skill"
+  },
+  {
+    "eval_id": "coach-neg-06",
+    "eval_name": "Basic arithmetic",
+    "query": "What's 2 + 2?",
+    "should_trigger": false,
+    "note": "Simple math has no chess coaching relevance"
+  },
+  {
+    "eval_id": "coach-neg-07",
+    "eval_name": "Historical question",
+    "query": "Who was Napoleon?",
+    "should_trigger": false,
+    "note": "History questions are outside the chess coaching domain"
+  },
+  {
+    "eval_id": "coach-neg-08",
+    "eval_name": "Travel booking",
+    "query": "Book me a flight to Paris",
+    "should_trigger": false,
+    "note": "Travel planning is unrelated to chess"
+  },
+  {
+    "eval_id": "coach-neg-09",
+    "eval_name": "Song identification",
+    "query": "What song is this?",
+    "should_trigger": false,
+    "note": "Music queries should not activate the chess coach"
+  },
+  {
+    "eval_id": "coach-neg-10",
+    "eval_name": "Poker strategy",
+    "query": "Help me with my poker strategy",
+    "should_trigger": false,
+    "note": "Poker is a different game; not in scope for the chess coach"
+  }
+]

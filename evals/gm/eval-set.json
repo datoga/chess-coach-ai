@@ -1,0 +1,114 @@
+[
+  {
+    "eval_id": "gm-pos-01",
+    "eval_name": "Analyze a full game",
+    "query": "Analyze my game from yesterday and point out the key mistakes",
+    "should_trigger": true,
+    "note": "Full game analysis is the GM agent's primary function"
+  },
+  {
+    "eval_id": "gm-pos-02",
+    "eval_name": "Review PGN input",
+    "query": "Review this PGN: 1.e4 e5 2.Nf3 Nc6 3.Bc4 Bc5 4.b4",
+    "should_trigger": true,
+    "note": "PGN review with engine annotations is a GM agent task"
+  },
+  {
+    "eval_id": "gm-pos-03",
+    "eval_name": "Find errors in game",
+    "query": "Find all the blunders and inaccuracies in my last game",
+    "should_trigger": true,
+    "note": "Error classification (blunders, mistakes, inaccuracies) is GM work"
+  },
+  {
+    "eval_id": "gm-pos-04",
+    "eval_name": "Create training plan",
+    "query": "Create a structured 30-day training plan for my chess improvement",
+    "should_trigger": true,
+    "note": "The GM agent produces skill-based training plans"
+  },
+  {
+    "eval_id": "gm-pos-05",
+    "eval_name": "Evaluate a chess position",
+    "query": "Evaluate this position and suggest the best continuation: fen r1bq1rk1/pp2ppbp/2np1np1/8/3NP3/2N1BP2/PPPQ2PP/R3KB1R",
+    "should_trigger": true,
+    "note": "Position evaluation is a direct GM agent capability"
+  },
+  {
+    "eval_id": "gm-pos-06",
+    "eval_name": "Generate puzzles from game",
+    "query": "Generate tactical puzzles from the critical moments in my last game",
+    "should_trigger": true,
+    "note": "Puzzle generation from game moments is a GM agent feature"
+  },
+  {
+    "eval_id": "gm-pos-07",
+    "eval_name": "Opening repertoire advice",
+    "query": "Help me build a solid White opening repertoire based on 1.d4",
+    "should_trigger": true,
+    "note": "Opening repertoire construction is a GM agent responsibility"
+  },
+  {
+    "eval_id": "gm-pos-08",
+    "eval_name": "Endgame analysis",
+    "query": "Analyze this king and pawn endgame and explain the correct technique",
+    "should_trigger": true,
+    "note": "Endgame analysis and technique explanation is core GM work"
+  },
+  {
+    "eval_id": "gm-neg-01",
+    "eval_name": "Scout opponent profile",
+    "query": "Scout my next opponent on lichess and find their weaknesses",
+    "should_trigger": false,
+    "note": "Opponent scouting is the intel agent's domain"
+  },
+  {
+    "eval_id": "gm-neg-02",
+    "eval_name": "Sleep advice before tournament",
+    "query": "How many hours of sleep should I get before a tournament?",
+    "should_trigger": false,
+    "note": "Sleep advice belongs to the biohack agent"
+  },
+  {
+    "eval_id": "gm-neg-03",
+    "eval_name": "Tilt detection",
+    "query": "Detect if I'm on tilt based on my recent game patterns",
+    "should_trigger": false,
+    "note": "Tilt and emotional state detection is the mind agent's role"
+  },
+  {
+    "eval_id": "gm-neg-04",
+    "eval_name": "Nutrition plan",
+    "query": "Give me a nutrition plan for a 9-round classical tournament",
+    "should_trigger": false,
+    "note": "Nutrition planning is a biohack agent function"
+  },
+  {
+    "eval_id": "gm-neg-05",
+    "eval_name": "Download games from lichess",
+    "query": "Download all my opponent's games from lichess for the past month",
+    "should_trigger": false,
+    "note": "Downloading external player data is an intel agent task"
+  },
+  {
+    "eval_id": "gm-neg-06",
+    "eval_name": "Player profile stats",
+    "query": "Show me the rating progression and win rates of user tactical_titan",
+    "should_trigger": false,
+    "note": "Profile stats belong to the intel agent's scouting pipeline"
+  },
+  {
+    "eval_id": "gm-neg-07",
+    "eval_name": "Supplement recommendation",
+    "query": "What supplements should I take to improve focus during long games?",
+    "should_trigger": false,
+    "note": "Supplement advice is scoped to the biohack agent"
+  },
+  {
+    "eval_id": "gm-neg-08",
+    "eval_name": "Breathing exercise",
+    "query": "Give me a breathing exercise to calm down between games",
+    "should_trigger": false,
+    "note": "Breathing and stress management techniques are mind agent territory"
+  }
+]

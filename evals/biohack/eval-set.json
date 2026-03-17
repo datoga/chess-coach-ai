@@ -1,0 +1,114 @@
+[
+  {
+    "eval_id": "biohack-pos-01",
+    "eval_name": "Nutrition plan for tournament",
+    "query": "Create a nutrition plan for a 2-day rapid tournament this weekend",
+    "should_trigger": true,
+    "note": "Tournament nutrition planning is a primary biohack agent function"
+  },
+  {
+    "eval_id": "biohack-pos-02",
+    "eval_name": "Sleep quality assessment",
+    "query": "I slept only 4 hours. Should I play a long classical game today?",
+    "should_trigger": true,
+    "note": "Sleep-based readiness assessment is a core biohack signal"
+  },
+  {
+    "eval_id": "biohack-pos-03",
+    "eval_name": "Supplement advice for focus",
+    "query": "What supplements can help me stay focused during a 5-hour game?",
+    "should_trigger": true,
+    "note": "Cognitive supplement recommendations are a biohack agent specialty"
+  },
+  {
+    "eval_id": "biohack-pos-04",
+    "eval_name": "Pre-game protocol",
+    "query": "What should my pre-game routine look like on tournament day?",
+    "should_trigger": true,
+    "note": "Pre-game physical and mental preparation protocols are biohack territory"
+  },
+  {
+    "eval_id": "biohack-pos-05",
+    "eval_name": "Current energy level check",
+    "query": "My energy is low right now. Is it a good time to play rated games?",
+    "should_trigger": true,
+    "note": "Real-time energy level evaluation for play readiness is a biohack function"
+  },
+  {
+    "eval_id": "biohack-pos-06",
+    "eval_name": "Hydration recommendation",
+    "query": "How much water should I drink during a long tournament session?",
+    "should_trigger": true,
+    "note": "Hydration strategy during competition is a biohack agent recommendation"
+  },
+  {
+    "eval_id": "biohack-pos-07",
+    "eval_name": "Recovery routine after tournament",
+    "query": "What recovery routine do you recommend after 8 hours of competitive play?",
+    "should_trigger": true,
+    "note": "Post-tournament physical recovery planning is a biohack agent task"
+  },
+  {
+    "eval_id": "biohack-pos-08",
+    "eval_name": "Training intensity adjustment",
+    "query": "I've been training heavily for 2 weeks. Should I reduce intensity this week?",
+    "should_trigger": true,
+    "note": "Training load management and periodization advice is a biohack function"
+  },
+  {
+    "eval_id": "biohack-neg-01",
+    "eval_name": "Analyze chess game",
+    "query": "Analyze my last game and show me where I went wrong",
+    "should_trigger": false,
+    "note": "Game analysis is the GM agent's domain"
+  },
+  {
+    "eval_id": "biohack-neg-02",
+    "eval_name": "Scout opponent",
+    "query": "Scout my upcoming opponent and find their weaknesses",
+    "should_trigger": false,
+    "note": "Opponent scouting belongs to the intel agent"
+  },
+  {
+    "eval_id": "biohack-neg-03",
+    "eval_name": "Detect tilt patterns",
+    "query": "Detect whether I'm tilting based on my game-to-game behavior",
+    "should_trigger": false,
+    "note": "Tilt and psychological pattern detection is the mind agent's role"
+  },
+  {
+    "eval_id": "biohack-neg-04",
+    "eval_name": "Opening repertoire advice",
+    "query": "What openings should I add to my repertoire as Black?",
+    "should_trigger": false,
+    "note": "Opening repertoire construction is the GM agent's responsibility"
+  },
+  {
+    "eval_id": "biohack-neg-05",
+    "eval_name": "Download games from lichess",
+    "query": "Download my last 100 games from lichess",
+    "should_trigger": false,
+    "note": "Game data retrieval is an intel agent operation"
+  },
+  {
+    "eval_id": "biohack-neg-06",
+    "eval_name": "Stockfish position evaluation",
+    "query": "Use Stockfish to evaluate the best move in this endgame position",
+    "should_trigger": false,
+    "note": "Engine-based position evaluation is the GM agent's task"
+  },
+  {
+    "eval_id": "biohack-neg-07",
+    "eval_name": "Time pattern analysis",
+    "query": "How does my time usage change when I'm in a losing position?",
+    "should_trigger": false,
+    "note": "Psychological time pattern analysis belongs to the mind agent"
+  },
+  {
+    "eval_id": "biohack-neg-08",
+    "eval_name": "Error classification",
+    "query": "Classify my errors from the last game as blunders, mistakes, or inaccuracies",
+    "should_trigger": false,
+    "note": "Error classification is a GM agent analytical function"
+  }
+]
