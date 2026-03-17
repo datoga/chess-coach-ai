@@ -1,31 +1,58 @@
 """Safe Stockfish evaluation wrapper with analysis depth profiles.
 
-Analysis modes:
-  - quick:  ~30s total for a full game. Depth 10, 0.5s per move. Good for rapid overview.
-  - normal: ~1-2 min total. Depth 15, 1.5s per move. Good for standard review.
-  - deep:   ~2-3 min total. Depth 20, 3s per move. Full analysis.
+Fallback chain:
+  1. Native Stockfish binary (fastest, best)
+  2. Stockfish WASM via Node.js (bundled in vendor/, no install needed)
+  3. chessdb.cn cloud eval (no local engine at all)
 
-Single position evaluation uses the same profiles but for one position only.
+Analysis modes:
+  - quick:  ~30s total for a full game. Depth 10, 0.5s per move.
+  - normal: ~1-2 min total. Depth 15, 1.5s per move.
+  - deep:   ~2-3 min total. Depth 20, 3s per move.
 """
 import shutil
+import subprocess
 import time
+import re
+from pathlib import Path
 from typing import Optional
 
-# Analysis profiles: depth, time_per_move_ms, total_budget_seconds
 PROFILES = {
     "quick":  {"depth": 10, "time_ms": 500,  "budget_sec": 30},
     "normal": {"depth": 15, "time_ms": 1500, "budget_sec": 120},
     "deep":   {"depth": 20, "time_ms": 3000, "budget_sec": 180},
 }
 
+WASM_DIR = Path(__file__).parent.parent / "vendor" / "stockfish-wasm"
+WASM_RUNNER = WASM_DIR / "run.js"
 
-def is_available() -> bool:
-    """Check if Stockfish binary is available on the system."""
+
+def _has_native() -> bool:
+    """Check if native Stockfish binary is available."""
     return shutil.which("stockfish") is not None
 
 
+def _has_wasm() -> bool:
+    """Check if Stockfish WASM is available."""
+    return WASM_RUNNER.exists() and shutil.which("node") is not None
+
+
+def is_available() -> bool:
+    """Check if any Stockfish engine is available (native or WASM)."""
+    return _has_native() or _has_wasm()
+
+
+def get_engine_type() -> str:
+    """Return which engine will be used."""
+    if _has_native():
+        return "native"
+    if _has_wasm():
+        return "wasm"
+    return "none"
+
+
 def _create_engine(profile: str = "normal"):
-    """Create a Stockfish instance with profile-appropriate settings."""
+    """Create a native Stockfish instance."""
     from stockfish import Stockfish
     p = PROFILES.get(profile, PROFILES["normal"])
     threads = 1 if profile == "quick" else 2
@@ -37,38 +64,101 @@ def _create_engine(profile: str = "normal"):
     )
 
 
+def _eval_wasm(fen: str, depth: int = 15, time_ms: int = 1500) -> Optional[dict]:
+    """Evaluate a position using Stockfish WASM via Node.js subprocess."""
+    if not _has_wasm():
+        return None
+
+    commands = f"uci\nisready\nposition fen {fen}\ngo depth {depth}\nquit\n"
+
+    try:
+        result = subprocess.run(
+            ["node", str(WASM_RUNNER)],
+            input=commands,
+            capture_output=True, text=True,
+            timeout=max(time_ms / 1000 * 2, 10),  # 2x time budget or 10s min
+        )
+
+        output = result.stdout
+        best_move = None
+        eval_cp = 0
+        eval_type = "cp"
+
+        for line in output.split("\n"):
+            # Parse "bestmove e2e4"
+            if line.startswith("bestmove"):
+                parts = line.split()
+                if len(parts) >= 2:
+                    best_move = parts[1]
+
+            # Parse deepest "info depth ... score cp/mate ..."
+            if "score" in line and "info depth" in line:
+                score_match = re.search(r"score (cp|mate) (-?\d+)", line)
+                if score_match:
+                    eval_type = score_match.group(1)
+                    val = int(score_match.group(2))
+                    if eval_type == "mate":
+                        eval_cp = 10000 if val > 0 else -10000
+                    else:
+                        eval_cp = val
+
+        if best_move:
+            return {
+                "eval_type": eval_type,
+                "eval_cp": eval_cp,
+                "best_move": best_move,
+                "top_moves": [],
+                "profile": "wasm",
+            }
+        return None
+    except Exception:
+        return None
+
+
 def evaluate_position(fen: str, profile: str = "normal") -> Optional[dict]:
-    """Evaluate a single position with Stockfish.
+    """Evaluate a single position with Stockfish (native → WASM fallback).
 
     Args:
         fen: FEN string of the position
         profile: "quick" (0.5s), "normal" (1.5s), or "deep" (3s)
 
     Returns:
-        {"eval_cp": int, "eval_type": "cp"|"mate", "best_move": str, "top_moves": list} or None
+        {"eval_cp": int, "eval_type": "cp"|"mate", "best_move": str, "top_moves": list, "engine": str} or None
     """
     if not is_available():
         return None
 
     p = PROFILES.get(profile, PROFILES["normal"])
 
-    try:
-        sf = _create_engine(profile)
-        sf.set_fen_position(fen)
+    # Try native first
+    if _has_native():
+        try:
+            sf = _create_engine(profile)
+            sf.set_fen_position(fen)
 
-        evaluation = sf.get_evaluation()
-        best_move = sf.get_best_move_time(p["time_ms"])
-        top_moves = sf.get_top_moves(3)
+            evaluation = sf.get_evaluation()
+            best_move = sf.get_best_move_time(p["time_ms"])
+            top_moves = sf.get_top_moves(3)
 
-        return {
-            "eval_type": evaluation["type"],
-            "eval_cp": evaluation["value"],
-            "best_move": best_move,
-            "top_moves": [{"move": m["Move"], "cp": m.get("Centipawn", 0)} for m in top_moves],
-            "profile": profile,
-        }
-    except Exception:
-        return None
+            return {
+                "eval_type": evaluation["type"],
+                "eval_cp": evaluation["value"],
+                "best_move": best_move,
+                "top_moves": [{"move": m["Move"], "cp": m.get("Centipawn", 0)} for m in top_moves],
+                "profile": profile,
+                "engine": "native",
+            }
+        except Exception:
+            pass  # Fall through to WASM
+
+    # Fallback to WASM
+    if _has_wasm():
+        result = _eval_wasm(fen, depth=p["depth"], time_ms=p["time_ms"])
+        if result:
+            result["engine"] = "wasm"
+            return result
+
+    return None
 
 
 def evaluate_game(pgn_text: str, profile: str = "normal") -> dict:

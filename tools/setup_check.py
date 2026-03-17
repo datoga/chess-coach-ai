@@ -8,23 +8,37 @@ from pathlib import Path
 
 
 def check_stockfish() -> dict:
-    """Check Stockfish installation."""
+    """Check Stockfish installation (native + WASM fallback)."""
+    # Native
     path = shutil.which("stockfish")
-    if not path:
-        return {"installed": False, "path": None, "version": None}
-    try:
-        result = subprocess.run(
-            ["stockfish"],
-            input="uci\nquit\n",
-            capture_output=True, text=True, timeout=5
-        )
-        for line in result.stdout.split("\n"):
-            if line.startswith("id name"):
-                version = line.replace("id name ", "")
-                return {"installed": True, "path": path, "version": version}
-        return {"installed": True, "path": path, "version": "unknown"}
-    except Exception:
-        return {"installed": True, "path": path, "version": "unknown"}
+    native = False
+    version = None
+    if path:
+        try:
+            result = subprocess.run(
+                ["stockfish"],
+                input="uci\nquit\n",
+                capture_output=True, text=True, timeout=5
+            )
+            for line in result.stdout.split("\n"):
+                if line.startswith("id name"):
+                    version = line.replace("id name ", "")
+            native = True
+        except Exception:
+            native = True
+            version = "unknown"
+
+    # WASM fallback
+    wasm_runner = Path(__file__).parent.parent / "vendor" / "stockfish-wasm" / "run.js"
+    wasm = wasm_runner.exists() and shutil.which("node") is not None
+
+    return {
+        "installed": native or wasm,
+        "native": native,
+        "wasm": wasm,
+        "path": path,
+        "version": version or ("WASM (bundled)" if wasm else None),
+    }
 
 
 def check_python_deps() -> list[dict]:
@@ -100,8 +114,12 @@ def print_report(report: dict):
     sf = report["stockfish"]
     status = "✅" if sf["installed"] else "❌"
     print(f"\n{status} Stockfish: {sf.get('version', 'not installed')}")
+    if sf.get("native"):
+        print(f"   Native binary: {sf['path']}")
+    if sf.get("wasm"):
+        print(f"   WASM fallback: bundled (vendor/stockfish-wasm/)")
     if not sf["installed"]:
-        print("   Install: brew install stockfish")
+        print("   Install: brew install stockfish (or WASM fallback will be used if Node.js is available)")
 
     # Python deps
     print(f"\n📦 Python Dependencies:")

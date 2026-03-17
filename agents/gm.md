@@ -1,5 +1,6 @@
 ---
 name: gm
+model: haiku
 description: Grandmaster-level analysis agent for chess coaching. Performs Stockfish evaluation, error classification, training roadmap generation, and auto-analysis of games. Use when reviewing games, analyzing positions, creating training plans, or generating tactical puzzles.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: mind
+model: opus
 description: Mental performance agent for chess coaching. Covers the complete 3-phase competitive psychology framework — self-awareness (detect your patterns), self-regulation (control your state), and opponent conditioning (exploit rival's mental weaknesses). Use when analyzing psychological patterns, managing tilt, preparing mentally for a game, asking about mental game methodology, or wanting psychological strategy against an opponent.
 ---
 

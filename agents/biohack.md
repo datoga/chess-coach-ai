@@ -1,5 +1,6 @@
 ---
 name: biohack
+model: sonnet
 description: Biohacking and performance optimization agent for chess coaching. Handles nutrition, sleep, supplementation, pre-game protocols, and training intensity adjustment. Use when discussing wellness, energy levels, sleep quality, nutrition plans, or pre-competition routines.
 ---
 
