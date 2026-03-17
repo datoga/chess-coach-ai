@@ -16,11 +16,7 @@ AI-powered chess coaching system built as a **Claude Code plugin** with a multi-
 ```bash
 # Required
 brew install stockfish          # Stockfish 18+
-node --version                  # Node.js 24+ (for ChessAgine MCP)
 python3 --version               # Python 3.12+
-
-# Optional
-brew install lc0                # For Maia models
 ```
 
 ### Option A: Install via Marketplace (recommended)
@@ -46,22 +42,21 @@ claude plugin install github:datoga/chess-coach-ai
 ### Option C: Install from local clone
 
 ```bash
-# Clone and install dependencies
 git clone https://github.com/datoga/chess-coach-ai.git
 cd chess-coach-ai
 pip install -r requirements.txt
-
-# Load the plugin
 claude --plugin-dir ./chess-coach-ai
 ```
 
 ### Verify Installation
 
-In a Claude Code session with the plugin loaded:
+Once the plugin is loaded, run the setup wizard:
 
-1. Run `/help` — you should see `chess-coach-ai:coach` in the skills list
-2. Try: `Intel on DrNykterstein` — should return Magnus Carlsen's Lichess profile
-3. Try: `Review this game: 1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 1-0` — should analyze the game
+```
+/chess-coach-ai:setup
+```
+
+This checks all prerequisites (Stockfish, Python deps, opening database) and guides you through fixing any issues.
 
 ### Available via the `/chess-coach-ai:coach` skill
 
@@ -80,7 +75,7 @@ Once loaded, the coach skill is available in any Claude Code session. Example co
 ```
 User → /chess-coach-ai:coach (Coordinator)
        ├→ Intel (Lichess API, Opening Explorer, chessdb.cn)
-       ├→ GM (Stockfish, Maia2, PGN analysis, training insights)
+       ├→ GM (Stockfish analysis, PGN analysis, training insights)
        ├→ Mind (time patterns, tilt detection, resilience)
        └→ Biohack (nutrition, sleep, supplements, protocols)
        → Coordinator synthesizes → Unified response

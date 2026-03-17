@@ -68,34 +68,13 @@ brew install lc0
 ```
 lc0 is optional — only needed for local Maia model evaluation. ChessAgine MCP provides Maia2 without lc0.
 
-### ChessAgine MCP not installed
-
-ChessAgine provides Stockfish + Maia2 + board visualization via MCP. It must be installed from GitHub (not available on npm):
+## Step 3: Verify Stockfish
 
 ```bash
-# Clone and build
-git clone https://github.com/jalpp/chessagine-mcp.git ~/.local/lib/chessagine-mcp
-cd ~/.local/lib/chessagine-mcp
-npm install
-npm run build
+stockfish <<< "uci" | head -1
 ```
 
-Note: `npm run build` may show an error about `mcpb pack` — this is normal, the TypeScript compilation still succeeds.
-
-If installing to a different path, set the env var:
-```bash
-export CHESSAGINE_PATH=/your/custom/path/chessagine-mcp
-```
-
-## Step 3: Verify ChessAgine MCP
-
-```bash
-echo '{}' | node ~/.local/lib/chessagine-mcp/build/runner/stdio.js
-```
-
-If this outputs "ChessAgine MCP Server running on stdio", it's working. Press Ctrl+C to stop.
-
-If you get "Cannot find module", the build failed — re-run `npm run build` in the chessagine-mcp directory.
+Should print something like `Stockfish 18 by T. Romstad, M. Costalba, J. Kiiski, G. Linscott`.
 
 ## Step 4: Re-run diagnostic
 

@@ -20,8 +20,6 @@ You gather, analyze, and synthesize data about chess players — both opponents 
 - `tools/opening_classifier.py` — Classify openings by ECO code using lichess-org/chess-openings dataset
 - `tools/game_vault.py` — Store and retrieve PGN games in the vault
 
-### MCP Tools
-- **ChessAgine** — Lichess game retrieval, opening explorer, board visualization
 
 ## Output Schema
 

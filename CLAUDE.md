@@ -26,13 +26,10 @@ All code and docs in English. Agents respond in the user's language.
 ### Prerequisites
 - Python 3.12+ with `pip install -r requirements.txt`
 - Stockfish 18+ (`brew install stockfish`)
-- Node.js 24+ (for ChessAgine MCP: `npx -y chessagine-mcp`)
-- Optional: lc0 for Maia models (`brew install lc0`)
 
 ### Verify Setup
 ```bash
 pytest tests/ -v          # All tests should pass
 stockfish <<< "uci"       # Should print Stockfish info
-npx -y chessagine-mcp     # Should start MCP server
 ```
 

@@ -7,22 +7,6 @@ import sys
 from pathlib import Path
 
 
-def check_binary(name: str, version_flag: str = "--version") -> dict:
-    """Check if a binary is available and get its version."""
-    path = shutil.which(name)
-    if not path:
-        return {"installed": False, "path": None, "version": None}
-    try:
-        result = subprocess.run(
-            [path, version_flag],
-            capture_output=True, text=True, timeout=5
-        )
-        version = (result.stdout + result.stderr).strip().split("\n")[0]
-        return {"installed": True, "path": path, "version": version}
-    except Exception:
-        return {"installed": True, "path": path, "version": "unknown"}
-
-
 def check_stockfish() -> dict:
     """Check Stockfish installation."""
     path = shutil.which("stockfish")
@@ -63,28 +47,6 @@ def check_python_deps() -> list[dict]:
     return results
 
 
-def check_chessagine_mcp() -> dict:
-    """Check if ChessAgine MCP is installed and can be started."""
-    import os
-    home = os.path.expanduser("~")
-    chessagine_path = os.environ.get("CHESSAGINE_PATH", os.path.join(home, ".local", "lib", "chessagine-mcp"))
-    server_js = Path(chessagine_path) / "build" / "runner" / "stdio.js"
-
-    node = shutil.which("node") or shutil.which("nodejs")
-    if not node:
-        return {"available": False, "reason": "Node.js not installed"}
-
-    if server_js.exists():
-        return {"available": True, "reason": f"Installed at {chessagine_path}"}
-
-    return {"available": False, "reason": f"Not found at {chessagine_path}. Run: git clone https://github.com/jalpp/chessagine-mcp.git {chessagine_path} && cd {chessagine_path} && npm install && npm run build:mcp"}
-
-
-def check_lc0() -> dict:
-    """Check lc0 (Leela Chess Zero) for Maia models."""
-    return check_binary("lc0")
-
-
 def check_openings_data() -> dict:
     """Check if lichess-org/chess-openings data is present."""
     openings_dir = Path(__file__).parent.parent / "data" / "openings"
@@ -111,10 +73,6 @@ def run_all_checks() -> dict:
     """Run all prerequisite checks and return full report."""
     return {
         "stockfish": check_stockfish(),
-        "node": check_binary("node"),
-        "python": check_binary("python3"),
-        "chessagine_mcp": check_chessagine_mcp(),
-        "lc0": check_lc0(),
         "python_deps": check_python_deps(),
         "openings_data": check_openings_data(),
         "vault": check_vault(),
@@ -133,28 +91,6 @@ def print_report(report: dict):
     print(f"\n{status} Stockfish: {sf.get('version', 'not installed')}")
     if not sf["installed"]:
         print("   Install: brew install stockfish")
-
-    # Node.js
-    node = report["node"]
-    status = "✅" if node["installed"] else "❌"
-    print(f"{status} Node.js: {node.get('version', 'not installed')}")
-    if not node["installed"]:
-        print("   Install: brew install node")
-
-    # ChessAgine MCP
-    mcp = report["chessagine_mcp"]
-    status = "✅" if mcp["available"] else "❌"
-    print(f"{status} ChessAgine MCP: {mcp['reason']}")
-    if not mcp["available"]:
-        print("   Requires Node.js. Then: npx -y chessagine-mcp")
-
-    # lc0 (optional)
-    lc0 = report["lc0"]
-    status = "✅" if lc0["installed"] else "⚠️ "
-    label = lc0.get("version", "not installed") if lc0["installed"] else "not installed (optional, for Maia models)"
-    print(f"{status} lc0: {label}")
-    if not lc0["installed"]:
-        print("   Optional install: brew install lc0")
 
     # Python deps
     print(f"\n📦 Python Dependencies:")
@@ -188,8 +124,6 @@ def print_report(report: dict):
     print("\n" + "=" * 60)
     critical = [
         report["stockfish"]["installed"],
-        report["node"]["installed"],
-        report["chessagine_mcp"]["available"],
         all_ok,
         report["openings_data"]["available"],
     ]
