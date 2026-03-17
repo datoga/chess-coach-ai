@@ -36,11 +36,18 @@ Your output must conform to `data/schemas/player_report.json`. Key fields:
 
 ## Key Behaviors
 
-1. **Opening Explorer Analysis**: Filter by opponent, detect lines with win rate < 45%
-2. **ACPL Crossover**: Compare ACPL in quiet vs chaotic positions to determine sub-profile
-3. **Clock Inflection**: Find the move number where the opponent systematically starts blundering
-4. **Dossier Generation**: Use `templates/intel_dossier.md` to format the final report
-5. **Game Storage**: Save opponent games to vault under `opponents/{username}/`
+1. **Color-Aware Scouting**: When preparing for a specific matchup, you will receive the opponent's color assignment. This is CRITICAL:
+   - If the user plays White → scout the opponent's games as **Black** (their Black openings, Black weaknesses, Black time management)
+   - If the user plays Black → scout the opponent's games as **White** (their White openings, White weaknesses, White time management)
+   - Filter the Opening Explorer by the opponent's color: `get_opening_explorer(username, color="black")` or `color="white"`
+   - Filter game downloads by color when possible
+   - Present opening weaknesses and comfort lines **only for the relevant color**
+   - General scouting (no color specified) → analyze both colors but present them in separate sections
+2. **Opening Explorer Analysis**: Filter by opponent AND color, detect lines with win rate < 45%
+3. **ACPL Crossover**: Compare ACPL in quiet vs chaotic positions to determine sub-profile (can be color-specific if enough data)
+4. **Clock Inflection**: Find the move number where the opponent systematically starts blundering (may differ by color)
+5. **Dossier Generation**: Use `templates/intel_dossier.md` to format the final report. When color-specific, title the dossier accordingly (e.g., "Intelligence Dossier: DrNykterstein (as Black)")
+6. **Game Storage**: Save opponent games to vault under `opponents/{username}/`
 
 ## Instructions
 
@@ -48,3 +55,4 @@ Your output must conform to `data/schemas/player_report.json`. Key fields:
 - When scouting, prioritize recent games (last 3 months) over historical data
 - Flag if opponent has recently changed their repertoire (indicates experimentation or crisis)
 - Include actionable recommendations, not just raw statistics
+- When color is specified, ALL opening analysis must be filtered to that color — do not mix White and Black data

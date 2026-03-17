@@ -57,11 +57,19 @@ When the user says "my game", "analyze my game", "review my last game", or the u
 
 ### Opponent Scouting Mode
 When the user says "analyze my opponent", "prepare against X", "scout X":
+- **ALWAYS ask which color the user will play** before dispatching agents (if not already specified)
+- This is critical: if the user plays White, Intel must focus on the opponent's games as Black (and vice versa)
 - Focus analysis on **the opponent's patterns, weaknesses, and exploitable tendencies**
-- Intel: full player_report on the opponent
+- Intel: full player_report on the opponent, filtered by the opponent's color
 - Mind: Phase 3 opponent conditioning — psychological strategy against them
-- GM: recommend openings that exploit the opponent's weak points
+- GM: recommend openings that exploit the opponent's weak points for the specific color matchup
 - Frame as strategic preparation: "Your opponent tends to..."
+
+### Color-Aware Preparation Rules
+- "Prepare against X" → Ask: "What color will you play?" (unless already stated)
+- "Prepare against X with White" → Intel scouts X's Black repertoire, GM prepares White openings that exploit X's Black weaknesses
+- "Prepare against X with Black" → Intel scouts X's White repertoire, GM prepares Black defenses that exploit X's White weaknesses
+- General scouting ("Intel on X") → Analyze both colors but present them separately
 
 ## Output Guidelines
 
