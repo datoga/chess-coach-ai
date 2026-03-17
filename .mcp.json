@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "chessagine": {
-      "command": "node",
-      "args": ["${CHESSAGINE_PATH:-${HOME}/.local/lib/chessagine-mcp}/build/runner/stdio.js"]
+      "command": "bash",
+      "args": ["tools/run-chessagine.sh"]
     }
   }
 }
