@@ -92,15 +92,14 @@ When all critical items show ✅, tell the user they're ready.
 
 After setup is complete, you MUST check if the user has done the onboarding tour before. Search memory for "onboarding" or "onboard".
 
-**If NO onboarding memory found** (this is the default for new users), your FINAL message MUST end with:
+**If NO onboarding memory found** (this is the default for new users), your FINAL message MUST:
+- Confirm setup is complete
+- Recommend running `/chess-coach-ai:onboard` as next step
+- Mention it's an interactive tour with live demos (~5 minutes)
 
-> "✅ Setup complete! Now run `/chess-coach-ai:onboard` — it's an interactive tour that demos all 4 agents with live examples. Takes about 5 minutes."
+**If onboarding memory IS found**, just confirm setup is complete.
 
-**If onboarding memory IS found**, your final message should be:
-
-> "✅ Setup complete! Everything looks good."
-
-Do NOT suggest "Intel on DrNykterstein" or any other command. Always point to onboard first for new users.
+Do NOT suggest other commands. Always point to onboard first for new users.
 
 ## Instructions
 
