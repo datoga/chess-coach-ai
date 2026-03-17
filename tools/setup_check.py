@@ -119,7 +119,9 @@ def print_report(report: dict):
     if sf.get("wasm"):
         print(f"   WASM fallback: bundled (vendor/stockfish-wasm/)")
     if not sf["installed"]:
-        print("   Install: brew install stockfish (or WASM fallback will be used if Node.js is available)")
+        print("   Option 1: brew install stockfish (recommended, fastest)")
+        print("   Option 2: install Node.js 24+ (brew install node) — WASM fallback activates automatically")
+        print("   Option 3: no install needed — cloud eval via chessdb.cn (slower, requires internet)")
 
     # Python deps
     print(f"\n📦 Python Dependencies:")
