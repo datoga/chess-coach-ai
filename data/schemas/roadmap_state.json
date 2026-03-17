@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "roadmap_state",
+  "title": "Roadmap State",
+  "type": "object",
+  "required": ["user_profile", "phase_balance", "active_weaknesses"],
+  "properties": {
+    "user_profile": {
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "platform": { "type": "string" },
+        "target_rating": { "type": "integer" },
+        "current_rating": { "type": "integer" },
+        "style_archetype": {
+          "type": "string",
+          "enum": ["activist", "theorist", "defender"]
+        }
+      }
+    },
+    "phase_balance": {
+      "type": "object",
+      "properties": {
+        "openings": { "type": "integer" },
+        "middlegame": { "type": "integer" },
+        "endgame": { "type": "integer" },
+        "tactics": { "type": "integer" }
+      },
+      "required": ["openings", "middlegame", "endgame", "tactics"],
+      "additionalProperties": false
+    },
+    "active_weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic": { "type": "string" },
+          "phase": {
+            "type": "string",
+            "enum": ["openings", "middlegame", "endgame", "tactics"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "recurrence_count": { "type": "integer" },
+          "last_seen": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "completed_topics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_session_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": ["openings", "middlegame", "endgame", "tactics"]
+          },
+          "topic": { "type": "string" },
+          "duration_minutes": { "type": "integer" },
+          "resource": { "type": "string" }
+        }
+      }
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

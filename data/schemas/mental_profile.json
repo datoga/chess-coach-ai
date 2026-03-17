@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mental_profile",
+  "title": "Mental Profile",
+  "type": "object",
+  "required": ["tilt_detected", "tilt_type", "session_recommendation"],
+  "properties": {
+    "tilt_detected": {
+      "type": "boolean"
+    },
+    "tilt_type": {
+      "type": "string",
+      "enum": ["none", "injustice", "hate_to_lose", "panic_admin"]
+    },
+    "tilt_evidence": {
+      "type": "string"
+    },
+    "decision_patterns": {
+      "type": "object",
+      "properties": {
+        "impulsive_moves": {
+          "type": "object",
+          "properties": {
+            "count": { "type": "integer" },
+            "avg_time_seconds": { "type": "number" },
+            "positions": { "type": "array", "items": { "type": "string" } },
+            "quality": { "type": "number" }
+          }
+        },
+        "paralysis_moves": {
+          "type": "object",
+          "properties": {
+            "count": { "type": "integer" },
+            "avg_time_seconds": { "type": "number" },
+            "positions": { "type": "array", "items": { "type": "string" } },
+            "quality": { "type": "number" }
+          }
+        }
+      }
+    },
+    "tension_management": {
+      "type": "object",
+      "properties": {
+        "premature_simplification_rate": { "type": "number" },
+        "pieces_traded_when_ahead": { "type": "number" }
+      }
+    },
+    "post_loss_pattern": {
+      "type": "string",
+      "enum": ["tilt_spiral", "recovery", "neutral", "quit"]
+    },
+    "resilience_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "recommended_interventions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["breathing", "break", "puzzle_reset", "walk", "hydration"]
+          },
+          "trigger": {
+            "type": "string",
+            "enum": ["before_game", "after_loss", "time_trouble", "blunder", "tilt_detected"]
+          },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "session_recommendation": {
+      "type": "string",
+      "enum": ["play", "study_only", "rest"]
+    }
+  },
+  "additionalProperties": false
+}

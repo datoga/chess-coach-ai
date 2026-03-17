@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "player_report",
+  "title": "Player Report",
+  "type": "object",
+  "required": ["username", "platform", "ratings", "style_archetype", "style_sub_profile"],
+  "properties": {
+    "username": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["lichess"]
+    },
+    "ratings": {
+      "type": "object",
+      "properties": {
+        "bullet": { "type": "integer" },
+        "blitz": { "type": "integer" },
+        "rapid": { "type": "integer" },
+        "classical": { "type": "integer" }
+      }
+    },
+    "games_analyzed": {
+      "type": "integer"
+    },
+    "style_archetype": {
+      "type": "string",
+      "enum": ["activist", "theorist", "defender"]
+    },
+    "style_sub_profile": {
+      "type": "string",
+      "enum": ["precision_player", "chaos_specialist", "balanced"]
+    },
+    "acpl_avg": {
+      "type": "number"
+    },
+    "clock_inflection_point": {
+      "type": "object",
+      "properties": {
+        "move_number": { "type": "integer" },
+        "avg_error_spike": { "type": "number" }
+      }
+    },
+    "opening_weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eco": { "type": "string" },
+          "name": { "type": "string" },
+          "color": { "type": "string" },
+          "win_rate": { "type": "number" },
+          "games": { "type": "integer" }
+        }
+      }
+    },
+    "comfort_lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eco": { "type": "string" },
+          "name": { "type": "string" },
+          "color": { "type": "string" },
+          "win_rate": { "type": "number" },
+          "games": { "type": "integer" }
+        }
+      }
+    },
+    "time_trouble_frequency": {
+      "type": "number"
+    },
+    "recent_form": {
+      "type": "string",
+      "enum": ["improving", "stable", "declining"]
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

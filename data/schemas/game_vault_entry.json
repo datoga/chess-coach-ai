@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "game_vault_entry",
+  "title": "Game Vault Entry",
+  "type": "object",
+  "required": ["game_id", "source", "category", "pgn_file", "sync_status"],
+  "properties": {
+    "game_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["manual", "lichess_import", "lichess_url"]
+    },
+    "category": {
+      "type": "string",
+      "enum": ["my_game", "opponent_prep"]
+    },
+    "opponent_username": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    },
+    "date_played": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "date_stored": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "time_control": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string"
+    },
+    "user_color": {
+      "type": "string",
+      "enum": ["white", "black", "unknown"]
+    },
+    "opening_eco": {
+      "type": "string"
+    },
+    "opening_name": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pgn_file": {
+      "type": "string"
+    },
+    "insights_file": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    },
+    "auto_analyzed": {
+      "type": "boolean"
+    },
+    "sync_status": {
+      "type": "string",
+      "enum": ["local_only", "synced", "pending_sync"]
+    }
+  },
+  "additionalProperties": false
+}

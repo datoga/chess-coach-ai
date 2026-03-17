@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "biohack_protocol",
+  "title": "Biohack Protocol",
+  "type": "object",
+  "required": ["current_state", "competition_phase", "training_intensity_modifier"],
+  "properties": {
+    "current_state": {
+      "type": "object",
+      "properties": {
+        "sleep_hours": { "type": "number" },
+        "sleep_quality": {
+          "type": "string",
+          "enum": ["good", "fair", "poor"]
+        },
+        "hrv": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "null" }
+          ]
+        },
+        "energy_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "last_meal_hours_ago": { "type": "number" },
+        "hydration": {
+          "type": "string",
+          "enum": ["adequate", "low"]
+        }
+      }
+    },
+    "competition_phase": {
+      "type": "string",
+      "enum": ["pre_tournament", "game_day", "between_rounds", "post_game", "rest_day"]
+    },
+    "protocol": {
+      "type": "object",
+      "properties": {
+        "nutrition": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "supplementation": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "physical": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "mental": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recovery": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "training_intensity_modifier": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "alerts": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}
