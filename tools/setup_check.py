@@ -69,12 +69,19 @@ def check_vault() -> dict:
     }
 
 
+def check_tablebase() -> dict:
+    """Check endgame tablebase availability."""
+    from tools.tablebase import is_available
+    return is_available()
+
+
 def run_all_checks() -> dict:
     """Run all prerequisite checks and return full report."""
     return {
         "stockfish": check_stockfish(),
         "python_deps": check_python_deps(),
         "openings_data": check_openings_data(),
+        "tablebase": check_tablebase(),
         "vault": check_vault(),
     }
 
@@ -110,6 +117,15 @@ def print_report(report: dict):
     print(f"\n{status} Opening database: {od['files']} TSV files")
     if not od["available"]:
         print("   Missing lichess-org/chess-openings data in data/openings/")
+
+    # Tablebase
+    tb = report["tablebase"]
+    online_status = "✅" if tb["online"] else "❌"
+    local_status = "✅" if tb["local"] else "⚠️ "
+    print(f"\n{online_status} Tablebase API (Lichess): {'available' if tb['online'] else 'unreachable'}")
+    print(f"{local_status} Local Syzygy tables: {tb.get('local_path', 'not installed (optional)')}")
+    if not tb["local"]:
+        print("   Optional: download 3-4-5 piece tables to ~/.local/share/syzygy/")
 
     # Vault
     vault = report["vault"]

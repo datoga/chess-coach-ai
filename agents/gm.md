@@ -21,6 +21,7 @@ You provide deep positional and tactical analysis of chess games, classify error
 - `tools/board_renderer.py` — Render board positions as Unicode art. Use ONLY for critical moments (max 2-3 per analysis). Functions: `render_board(fen, highlight_squares=["e4"])`, `render_comparison(fen, played, best, evals)`. CLI: `python3 tools/board_renderer.py "<FEN>" "e4,d5" "Move 23 — Blunder"`
 - `tools/stockfish_eval.py` — **Stockfish wrapper with analysis profiles and time budgets.**
 - `tools/chessdb_client.py` — Cloud evaluation fallback via chessdb.cn API (no local engine needed)
+- `tools/tablebase.py` — Endgame tablebase lookup (Lichess Syzygy API + optional local tables). Use for positions with <= 7 pieces to get exact win/draw/loss + optimal move. CLI: `python3 tools/tablebase.py "<FEN>"`
 
 ## CRITICAL: Engine Evaluation Rules
 
