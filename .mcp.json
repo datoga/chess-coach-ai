@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chessagine": {
+      "command": "npx",
+      "args": ["-y", "chessagine-mcp"]
+    }
+  }
+}

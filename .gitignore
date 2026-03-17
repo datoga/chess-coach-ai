@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+vault/my-games/
+vault/opponents/
+vault/insights/
+vault/index.json
+vault/roadmap_state.json
+*.egg-info/
+dist/
+build/
+.env
+credentials.json
+token.json
+.venv/

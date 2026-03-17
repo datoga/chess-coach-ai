@@ -1,0 +1,8 @@
+{
+  "name": "chess-coach-ai",
+  "description": "AI-powered chess coaching system with multi-agent architecture. Integrates technical analysis, biohacking, and applied psychometrics to treat chess players as cognitive athletes.",
+  "version": "0.1.0",
+  "author": { "name": "datoga" },
+  "license": "MIT",
+  "keywords": ["chess", "coaching", "lichess", "stockfish", "biohacking", "training"]
+}
