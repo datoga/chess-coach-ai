@@ -71,8 +71,12 @@ def check_vault() -> dict:
 
 def check_tablebase() -> dict:
     """Check endgame tablebase availability."""
-    from tools.tablebase import is_available
-    return is_available()
+    import importlib.util
+    tb_path = Path(__file__).parent / "tablebase.py"
+    spec = importlib.util.spec_from_file_location("tablebase", tb_path)
+    tb = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tb)
+    return tb.is_available()
 
 
 def run_all_checks() -> dict:
