@@ -25,7 +25,10 @@ Tell the user you'll demo each one.
 
 ### 2. Demo: Intel — Player Profiling
 
-Tell the user:
+**First, explain what Intel does:**
+Intel is your reconnaissance agent. It connects to the Lichess API to build intelligence dossiers on any player — your opponents or yourself. It analyzes their opening repertoire, detects weaknesses (lines where they score below 45%), identifies their playing style (activist, theorist, or defender), and finds clock management patterns (at which move they start blundering under time pressure). In pre-game preparation, Intel feeds its findings directly to GM and Mind so they can prepare targeted strategies.
+
+Then ask:
 > Give me a Lichess username and I'll show you what our scouting agent finds.
 
 If the user provides a username, run a **quick** Intel scout (last 10-15 games only, basic stats). If not, use "DrNykterstein" (Magnus Carlsen) as example.
@@ -34,14 +37,17 @@ Show: ratings, main openings, win rate. Keep it brief — this is a demo, not a 
 
 ### 3. Demo: GM — Game Analysis
 
-Tell the user:
+**First, explain what GM does:**
+GM is the analytical core. It runs every position through Stockfish to find errors, calculates your ACPL (Average Centipawn Loss) and DQM (Decision Quality Metric — a level-relative score from 0 to 1 that measures how well you played compared to your expected best). It classifies each error by its cognitive origin: was it a tactical miss, a conceptual weakness, a pattern recognition failure, or time pressure? This classification drives your personalized training plan — instead of generic "study more tactics", GM tells you exactly what type of exercises you need based on the errors you actually make. It also generates tactical puzzles from your own blunders and uses endgame tablebases for perfect evaluation in positions with 7 pieces or fewer.
+
+Then ask:
 > Paste a PGN of one of your games, or I'll analyze a sample game.
 
 If user pastes a PGN, analyze it with `stockfish_eval.py --game ... quick` (~30 seconds).
 
 Show: ACPL, DQM score, 2-3 critical moments with board rendering, error classifications, training recommendations.
 
-Explicitly note: "This was a quick analysis (~30s). For deeper analysis, ask for 'deep review' which takes 2-3 minutes."
+Explicitly note that this was a quick analysis (~30s) and for deeper analysis they can ask for "deep review" which takes 2-3 minutes.
 
 ### 4. Demo: Mind — Mental Game Framework
 
@@ -66,8 +72,10 @@ Then say:
 
 ### 5. Demo: Biohack — Performance Optimization
 
-Tell the user:
-> "Biohack optimizes your body for chess. Try telling me your current state:"
+**First, explain what Biohack does:**
+Biohack treats you as a cognitive athlete. Your brain burns up to 20-30% of your daily calories, and during a 6-hour classical game your heart rate and cortisol levels rival those of a marathon runner. Biohack optimizes the biological substrate that processes chess — nutrition, hydration, sleep, supplementation, and physical routines. It generates complete preparation protocols from a week before the game through game day (timed to your specific game hour) to post-game recovery. During the game itself, it prescribes micro-feeding every 45-60 minutes, caffeine timing with L-Theanine pairing, and physical micro-interventions (standing up, cold water on wrists). It also adjusts training intensity based on your physical state — if you slept poorly, it tells GM to reduce the study load.
+
+Then ask:
 
 Prompt them:
 > "How many hours did you sleep? Energy level 1-10? When did you last eat?"
