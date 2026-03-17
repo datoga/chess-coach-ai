@@ -1,8 +1,13 @@
 {
   "name": "chess-coach-ai",
-  "description": "AI-powered chess coaching system with multi-agent architecture. Integrates technical analysis, biohacking, and applied psychometrics to treat chess players as cognitive athletes.",
   "version": "0.1.0",
-  "author": { "name": "datoga" },
+  "description": "AI-powered chess coaching system with multi-agent architecture. 4 specialized agents (Intel, GM, Mind, Biohack) provide opponent scouting, Stockfish analysis, mental game coaching (Jared Tendler's 3-phase framework), and biohacking protocols for competitive chess players.",
+  "author": {
+    "name": "datoga",
+    "email": "datoga@users.noreply.github.com"
+  },
+  "repository": "https://github.com/datoga/chess-coach-ai",
+  "homepage": "https://github.com/datoga/chess-coach-ai",
   "license": "MIT",
-  "keywords": ["chess", "coaching", "lichess", "stockfish", "biohacking", "training"]
+  "keywords": ["chess", "coaching", "lichess", "stockfish", "biohacking", "training", "mental-game", "tilt", "psychology", "cowork"]
 }
