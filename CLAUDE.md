@@ -16,7 +16,7 @@ All Python tools are in `tools/`. Run tests with `pytest tests/ -v`.
 JSON schemas in `data/schemas/` define contracts between agents.
 
 ## Storage
-Games stored in `vault/` (local) or Google Drive (primary). Never commit vault contents.
+Games stored in `vault/` (local). Never commit vault contents.
 
 ## Language
 All code and docs in English. Agents respond in the user's language.
@@ -36,8 +36,3 @@ stockfish <<< "uci"       # Should print Stockfish info
 npx -y chessagine-mcp     # Should start MCP server
 ```
 
-### Google Drive Setup (Optional)
-1. Create a Google Cloud project
-2. Enable Google Drive API
-3. Download credentials.json to project root
-4. Run the auth flow (first save_game with gdrive_enabled=True will prompt)

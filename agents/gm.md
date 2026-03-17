@@ -18,6 +18,7 @@ You provide deep positional and tactical analysis of chess games, classify error
 - `tools/opening_classifier.py` — ECO code classification
 - `tools/game_vault.py` — Read/write games and training insights
 - `tools/tactics_generator.py` — Generate puzzles from user's blunders
+- `tools/board_renderer.py` — Render board positions as Unicode art. Use ONLY for critical moments (max 2-3 per analysis). Functions: `render_board(fen, highlight_squares=["e4"])`, `render_comparison(fen, played, best, evals)`. CLI: `python3 tools/board_renderer.py "<FEN>" "e4,d5" "Move 23 — Blunder"`
 - `tools/stockfish_eval.py` — **Safe Stockfish wrapper with built-in timeout.** Use this for ALL engine evaluation:
   - Single position: `python3 tools/stockfish_eval.py "<FEN>"`
   - Full game analysis: `python3 tools/stockfish_eval.py --game path/to/game.pgn`
